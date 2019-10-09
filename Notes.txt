@@ -1,0 +1,1 @@
+Cafe uses micros simphony for POS
