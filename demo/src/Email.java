@@ -6,8 +6,14 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SendEmail {
+public class Email {
 
+    /**
+     * Sets up email services
+     * then actually sends the email
+     * @param recipient
+     * @throws MessagingException
+     */
     public static void sendMail(String recipient) throws MessagingException {
         Properties properties = new Properties();
 
@@ -26,7 +32,7 @@ public class SendEmail {
             }
         });
 
-        Message message = prepareMessage(session, myEmail, recipient);
+        Message message = initialMessage(session, myEmail, recipient);
         Message message1 = orderMessage(session, myEmail, recipient);
         Transport.send(message);
         System.out.println("Notification sent!");
@@ -39,7 +45,15 @@ public class SendEmail {
         System.out.println("Notification sent!");
     }
 
-    private static Message prepareMessage(Session session, String myEmail, String recepient) throws MessagingException {
+    /**
+     * Sets up the email sent initially to the customer.
+     * @param session
+     * @param myEmail
+     * @param recepient
+     * @return
+     * @throws MessagingException
+     */
+    private static Message initialMessage(Session session, String myEmail, String recepient) throws MessagingException {
         try{
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress((myEmail)));
@@ -49,10 +63,19 @@ public class SendEmail {
             return message;
         }
         catch(AddressException ex){
-            Logger.getLogger(SendEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
+
+    /**
+     * Sets up the email sent when the order is done.
+     * @param session
+     * @param myEmail
+     * @param recepient
+     * @return
+     * @throws MessagingException
+     */
     private static Message orderMessage(Session session, String myEmail, String recepient) throws MessagingException {
         try{
             Message message = new MimeMessage(session);
@@ -63,11 +86,11 @@ public class SendEmail {
             return message;
         }
         catch(AddressException ex){
-            Logger.getLogger(SendEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
     public static void main(String[]args) throws MessagingException {
-        SendEmail.sendMail("cnorton@mtu.edu");
+        Email.sendMail("cnorton@mtu.edu");
     }
 }
