@@ -22,4 +22,8 @@ public class Phone {
         //sjdlkdsjflkasj;dfkasdjflaksdjf
         return 0;
     }
+
+    public void bestMethodEver() {
+        // this does nothinggggg
+        int i = 0;
 }
