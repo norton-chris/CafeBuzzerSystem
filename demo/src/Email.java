@@ -22,7 +22,7 @@ public class Email {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String myEmail = "adsaffor@mtu.edu";
+        String myEmail = "lsstone@mtu.edu";
         String passWord = ""; // Enter password for this to work
 
         Session session = Session.getInstance(properties, new Authenticator() {
