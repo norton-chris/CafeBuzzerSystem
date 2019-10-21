@@ -23,7 +23,7 @@ public class Email {
         properties.put("mail.smtp.port", "587");
 
         String myEmail = "adsaffor@mtu.edu";
-        String passWord = ""; // Enter password for this to work
+        String passWord = "`1BackUp"; // Enter password for this to work
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -35,14 +35,14 @@ public class Email {
         Message message = initialMessage(session, myEmail, recipient);
         Message message1 = orderMessage(session, myEmail, recipient);
         Transport.send(message);
-        System.out.println("Notification sent!");
+        System.out.println("Order Confirmation Notification sent!");
         try {
-            Thread.sleep(15000);
+            Thread.sleep(5000);
         } catch (Exception e){
             System.exit(-1);
         }
         Transport.send(message1);
-        System.out.println("Notification sent!");
+        System.out.println("Order Ready Notification sent!");
     }
 
     /**
