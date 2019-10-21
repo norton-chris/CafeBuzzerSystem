@@ -14,16 +14,5 @@ public class Phone {
     public static void main(int args[]) {
 
         //System.out.println(parsePhoneNumber("715-944-9124"));
-        // change by Chris test
     }
-
-    public int testmerge(){
-        // sadflasdjflksdjfl;sdafsdk
-        //sjdlkdsjflkasj;dfkasdjflaksdjf
-        return 0;
-    }
-
-    public void bestMethodEver() {
-        // this does nothinggggg
-        int i = 0;
 }
