@@ -3,6 +3,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +23,7 @@ public class Email {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String myEmail = "lsstone@mtu.edu";
+        String myEmail = "chris.norton132@gmail.com";
         String passWord = ""; // Enter password for this to work
 
         Session session = Session.getInstance(properties, new Authenticator() {
@@ -91,6 +92,9 @@ public class Email {
         return null;
     }
     public static void main(String[]args) throws MessagingException {
-        Email.sendMail("cnorton@mtu.edu");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your email: ");
+        String input = scanner.nextLine();
+        Email.sendMail(input);
     }
 }

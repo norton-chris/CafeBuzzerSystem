@@ -11,7 +11,7 @@ public class Phone {
 
     private static ArrayList<String> carriers = new ArrayList<String>();
 
-    private String parsePhoneNumber(String input) {
+    public String parsePhoneNumber(String input) {
         String chunks[] = input.split("[ ,./)(-]+");
         String out = "";
         for(String c: chunks) {
