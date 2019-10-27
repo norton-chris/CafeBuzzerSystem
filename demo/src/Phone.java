@@ -52,7 +52,7 @@ public class Phone {
         }
         for (int i = 0; i < carriers.size(); i ++) {
             String recipientWithAt = recipient + carriers.get(i);
-            Message message1 = initialMessage(session, myEmail, recipientWithAt);
+            Message message1 = orderMessage(session, myEmail, recipientWithAt);
             Transport.send(message1);
             System.out.println("Order Notification sent for " + carriers.get(i));
         }
@@ -71,7 +71,7 @@ public class Phone {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress((myEmail)));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("[Prototype]Order Notification");
+           // message.setSubject("[Prototype]Order Notification");
             message.setText("Your order has been received by the Cafe Notification Center!\n\nYou will receive another notification when your order is ready.");
             return message;
         }
@@ -94,7 +94,7 @@ public class Phone {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress((myEmail)));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("[Prototype]Order Notification"); // Choose subject or text, don't need both
+            //message.setSubject("[Prototype]Order Notification"); // Choose subject or text, don't need both
             message.setText("Your order is ready to be picked up.");
             return message;
         } catch (AddressException ex) {
@@ -108,11 +108,11 @@ public class Phone {
 //        System.out.println(phone.parsePhoneNumber("715-944-9124"));
 //        System.out.println(phone.parsePhoneNumber("(715)944-9124"));
 //        System.out.println(phone.parsePhoneNumber("715 944 9124"));
-        phone.sendMail("616-566-8263");
+        phone.sendMail("616-240-8743");
     }
 
     private static void fillCarrierArray() {
         carriers.add("@vtext.com");
-        carriers.add("@txt.att.net");
+        carriers.add("@mms.att.net");
     }
 }
