@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Phone {
 
-    private String parsePhoneNumber(String input) {
+    public String parsePhoneNumber(String input) {
         String chunks[] = input.split("[ ,./)(-]+");
         String out = "";
         for(String c: chunks) {
@@ -17,7 +17,7 @@ public class Phone {
         return out;
     }
 
-    public static void sendMail(String recipient) throws MessagingException {
+    public void sendMail(String recipient) throws MessagingException {
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
