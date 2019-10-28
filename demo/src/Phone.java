@@ -11,12 +11,17 @@ public class Phone {
 
     private static ArrayList<String> carriers = new ArrayList<String>();
 
-    public String parsePhoneNumber(String input) {
+    public String parsePhoneNumber(String input) throws BadPhoneNumberException{
         String chunks[] = input.split("[ ,./)(-]+");
         String out = "";
         for(String c: chunks) {
             out += c;
         }
+
+        if (out.length() != 10) {
+            throw new BadPhoneNumberException(out + " is not a valid phone number!");
+        }
+
         return out;
     }
 
@@ -37,7 +42,11 @@ public class Phone {
                 return new PasswordAuthentication(myEmail, passWord);
             }
         });
-        recipient = parsePhoneNumber(recipient);
+        try {
+            recipient = parsePhoneNumber(recipient);
+        } catch (BadPhoneNumberException e) {
+            e.printStackTrace();
+        }
         fillCarrierArray();
         for (int i = 0; i < carriers.size(); i ++) {
             String recipientWithAt = recipient + carriers.get(i);
@@ -108,11 +117,13 @@ public class Phone {
 //        System.out.println(phone.parsePhoneNumber("715-944-9124"));
 //        System.out.println(phone.parsePhoneNumber("(715)944-9124"));
 //        System.out.println(phone.parsePhoneNumber("715 944 9124"));
-        phone.sendMail("616-240-8743");
+        phone.sendMail("6124815809");
     }
 
     private static void fillCarrierArray() {
         carriers.add("@vtext.com");
         carriers.add("@mms.att.net");
+        carriers.add("@messaging.sprintpcs.com");
+        carriers.add("@tmomail.net");
     }
 }
