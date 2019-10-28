@@ -42,7 +42,11 @@ public class Phone {
                 return new PasswordAuthentication(myEmail, passWord);
             }
         });
-        recipient = parsePhoneNumber(recipient);
+        try {
+            recipient = parsePhoneNumber(recipient);
+        } catch (BadPhoneNumberException e) {
+            e.printStackTrace();
+        }
         fillCarrierArray();
         for (int i = 0; i < carriers.size(); i ++) {
             String recipientWithAt = recipient + carriers.get(i);
