@@ -108,11 +108,13 @@ public class Phone {
 //        System.out.println(phone.parsePhoneNumber("715-944-9124"));
 //        System.out.println(phone.parsePhoneNumber("(715)944-9124"));
 //        System.out.println(phone.parsePhoneNumber("715 944 9124"));
-        phone.sendMail("616-240-8743");
+        phone.sendMail("6124815809");
     }
 
     private static void fillCarrierArray() {
         carriers.add("@vtext.com");
         carriers.add("@mms.att.net");
+        carriers.add("@messaging.sprintpcs.com");
+        carriers.add("@tmomail.net");
     }
 }
