@@ -11,12 +11,17 @@ public class Phone {
 
     private static ArrayList<String> carriers = new ArrayList<String>();
 
-    public String parsePhoneNumber(String input) {
+    public String parsePhoneNumber(String input) throws BadPhoneNumberException{
         String chunks[] = input.split("[ ,./)(-]+");
         String out = "";
         for(String c: chunks) {
             out += c;
         }
+
+        if (out.length() != 10) {
+            throw new BadPhoneNumberException(out + " is not a valid phone number!");
+        }
+
         return out;
     }
 
