@@ -16,32 +16,66 @@ class PhoneTest {
     }
 
     @Test
-    void parseTest1() { assert "9068675309".equals(phone.parsePhoneNumber("9068675309")); }
-
-    @Test
-    void parseTest2() {
-        assert "9068675309".equals(phone.parsePhoneNumber("906-867-5309"));
+    void parseTest1() {
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber("9068675309"));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
     }
 
     @Test
-    void parseTest3() { assert "9068675309".equals(phone.parsePhoneNumber("906/867/5309")); }
+    void parseTest2() {
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber("906-867-5309"));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
+    }
 
     @Test
-    void parseTest4() { assert "9068675309".equals(phone.parsePhoneNumber("(906)867.5309")); }
+    void parseTest3() {
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber("906/867/5309"));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
+    }
+
+    @Test
+    void parseTest4() {
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber("(906)867.5309"));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
+    }
 
     @Test
     void parseTest5() {
-        assert "9068675309".equals(phone.parsePhoneNumber("906 867 5309"));
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber("906 867 5309"));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
     }
 
     @Test
     void parseTest6() {
-        assert "9068675309".equals(phone.parsePhoneNumber(" 9 068  67 5  309 "));
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber(" 9 068  67 5  309 "));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
     }
 
     @Test
     void parseTest7() {
-        assert "9068675309".equals(phone.parsePhoneNumber("90 ./-)686.,/75()-309"));
+        try {
+            assert "9068675309".equals(phone.parsePhoneNumber("90 ./-)686.,/75()-309"));
+        } catch (BadPhoneNumberException e) {
+            assert false;
+        }
     }
 
     @Test
