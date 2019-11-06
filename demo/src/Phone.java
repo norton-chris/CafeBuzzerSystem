@@ -4,6 +4,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,7 +53,7 @@ public class Phone {
             String recipientWithAt = recipient + carriers.get(i);
             Message message = initialMessage(session, myEmail, recipientWithAt);
             Transport.send(message);
-            System.out.println("Initial Notification sent for" + carriers.get(i));
+            //System.out.println("Initial Notification sent for" + carriers.get(i));
         }
         try {
             Thread.sleep(15000);
@@ -63,7 +64,7 @@ public class Phone {
             String recipientWithAt = recipient + carriers.get(i);
             Message message1 = orderMessage(session, myEmail, recipientWithAt);
             Transport.send(message1);
-            System.out.println("Order Notification sent for " + carriers.get(i));
+            //System.out.println("Order Notification sent for " + carriers.get(i));
         }
     }
 
@@ -117,13 +118,28 @@ public class Phone {
 //        System.out.println(phone.parsePhoneNumber("715-944-9124"));
 //        System.out.println(phone.parsePhoneNumber("(715)944-9124"));
 //        System.out.println(phone.parsePhoneNumber("715 944 9124"));
-        phone.sendMail("6124815809");
+        //phone.sendMail("6124815809");
+        boolean invalid = true;
+        while(invalid) {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter your phone number: ");
+                String input = scanner.nextLine();
+                phone.sendMail(input);
+                invalid = false;
+            } catch (SendFailedException e) {
+                System.out.println("Please enter a valid phone number");
+            }
+        }
+        System.out.println("Text Message Sent!");
     }
 
     private static void fillCarrierArray() {
-        carriers.add("@vtext.com");
-        carriers.add("@mms.att.net");
+        carriers.add("@vtext.com"); // Erin
+        carriers.add("@mms.att.net"); // Chris
         carriers.add("@messaging.sprintpcs.com");
-        carriers.add("@tmomail.net");
+        carriers.add("@tmomail.net"); // Luis
+        carriers.add("@sms.mycricket.com"); // Kid in our class
+        carriers.add("@mmst5.tracfone.com"); // Dr Walker
     }
 }
