@@ -135,9 +135,11 @@ public class Phone {
     }
 
     private static void fillCarrierArray() {
-        carriers.add("@vtext.com");
-        carriers.add("@mms.att.net");
+        carriers.add("@vtext.com"); // Erin
+        carriers.add("@mms.att.net"); // Chris
         carriers.add("@messaging.sprintpcs.com");
-        carriers.add("@tmomail.net");
+        carriers.add("@tmomail.net"); // Luis
+        carriers.add("@sms.mycricket.com"); // Kid in our class
+        carriers.add("@mmst5.tracfone.com"); // Dr Walker
     }
 }
