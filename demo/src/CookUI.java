@@ -12,6 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
+
 public class CookUI extends Application {
 
     public static void main(String[] args) {
@@ -23,6 +25,7 @@ public class CookUI extends Application {
         try {
             Email email = new Email();
             Phone phone = new Phone();
+            MessageBox msg = new MessageBox("dummybuzzer@gmail.com", "6129637757");
 
             // Create the Text
             Text title = new Text("Cafe Notification System");
@@ -55,7 +58,14 @@ public class CookUI extends Application {
                     System.out.println("Order number is: " + order);
                     // then check if the order number is in the HashMap
                     // if it is check for !null email and/or phone number
-                    // send email and/or text
+                    try {
+                        if (msg.hasEmail())
+                            email.sendMail("dummybuzzer@gmail.com");
+                        if(msg.hasPhone())
+                            phone.sendMail("6129637757");
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
