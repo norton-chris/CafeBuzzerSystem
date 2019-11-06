@@ -1,105 +1,66 @@
+import javax.activation.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.*;
+/**
+ * This class is used to send email with image.
+ * @author codesjava
+ */
+public class Email2 {
+    final String senderEmailId = "dummybuzzer@gmail.com";
+    final String senderPassword = "rezzuB6!";
+    final String emailSMTPserver = "smtpout.secureserver.net";
 
-import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
-public class Email2{
-    public static void main(String[] args) {
-        // Recipient's email ID needs to be mentioned.
-        String to = "adsaffor@gmail.com";
-
-        // Sender's email ID needs to be mentioned
-        String from = "adsaffor@gmail.com";
-        final String username = "adsaffor";//change accordingly
-        final String password = "`1BackUp";//change accordingly
-
-        // Assuming you are sending email through relay.jangosmtp.net
-        Properties props = new Properties();
-
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+    public Email2(String receiverEmail,
+                  String subject, String messageText, String imagePath) {
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
 
         try {
+            Authenticator auth = new SMTPAuthenticator();
+            Session session = Session.getInstance(properties, auth);
 
-            // Create a default MimeMessage object.
-            Message message = new MimeMessage(session);
+            Message emailMessage = new MimeMessage(session);
+            emailMessage.setFrom(new InternetAddress(senderEmailId));
+            emailMessage.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(receiverEmail));
+            emailMessage.setSubject(subject);
 
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
+            MimeBodyPart messageBodyPart1 = new MimeBodyPart();
+            messageBodyPart1.setText(messageText);
 
-            // Set To: header field of the header.
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
+            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
+            DataSource source = new FileDataSource("C:\\Users\\chris\\Documents\\CafeBuzzerSystem\\demo\\src\\cnii.png");
+            messageBodyPart2.setDataHandler(new DataHandler(source));
 
-            // Set Subject: header field
-            message.setSubject("Testing Subject");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart1);
+            multipart.addBodyPart(messageBodyPart2);
+            emailMessage.setContent(multipart);
 
-            // This mail has 2 part, the BODY and the embedded image
-            MimeMultipart multipart = new MimeMultipart("related");
+            Transport.send(emailMessage);
 
-            // first part (the html)
-            BodyPart messageBodyPart = new MimeBodyPart();
-            String htmlText = "<H1>Hello</H1><img src=\"cid:image\">";
-            ((MimeBodyPart) messageBodyPart).setText( "<html>\n" +
-                    "<head>\n" +
-                    "<title>Cafe Notification Email</title>\n" +
-                    "<style>\n" +
-                    "body{\n" +
-                    "background-image: url('C:\\Users\\antho\\Documents\\GitHub\\CafeBuzzerSystem\\demo\\src\\cnii.png');\n" +
-                    "background-repeat: no-repeat;\n" +
-                    "background-size: cover;\n" +
-                    "background-attachment: fixed;\n" +
-                    "background-size: 80% 80%\n" +
-                    "}\n" +
-                    "</style>\n" +
-                    "</head>\n" +
-                    "<body> <img src='cnii.jpg'>\n" +
-                    "</body>\n" +
-                    "</html>","text/html");
-            // add it
-            multipart.addBodyPart(messageBodyPart);
-
-            // second part (the image)
-            messageBodyPart = new MimeBodyPart();
-            DataSource fds = new FileDataSource(
-                    "C:\\Users\\antho\\Documents\\GitHub\\CafeBuzzerSystem\\demo\\src\\cnii.png");
-
-            messageBodyPart.setDataHandler(new DataHandler(fds));
-            messageBodyPart.setHeader("Content-ID", "<image>");
-
-            // add image to the multipart
-            multipart.addBodyPart(messageBodyPart);
-
-            // put everything together
-            message.setContent(multipart);
-            // Send message
-            Transport.send(message);
-
-            System.out.println("Sent message successfully....");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            System.out.println("Email send successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error in sending email.");
         }
+    }
+
+    private class SMTPAuthenticator extends
+            javax.mail.Authenticator {
+        public PasswordAuthentication
+        getPasswordAuthentication() {
+            return new PasswordAuthentication(senderEmailId,
+                    senderPassword);
+        }
+    }
+
+    public static void main(String[] args) {
+        new Email2("cnorton@mtu.edu", "Test Email",
+                "Hi, This is a test email with image.", "C:\\Users\\chris\\Documents\\CafeBuzzerSystem\\demo\\src\\cnii.png");
     }
 }
