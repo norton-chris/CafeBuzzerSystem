@@ -34,8 +34,8 @@ public class Phone {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String myEmail = "dummyBuzzer@gmail.com";
-        String passWord = "rezzuB6!"; // Enter password for this to work
+        String myEmail = "dumberbuzzer@gmail.com";
+        String passWord = "-0987654321qw"; // Enter password for this to work
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override

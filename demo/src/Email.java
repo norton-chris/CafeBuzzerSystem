@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class Email {
 
-    String email = "chris.norton132@gmail.com";
-    String password = "";
+    String email = "dumberbuzzer@gmail.com";
+    String password = "-0987654321qw";
 
     /**
      * Sets up email services

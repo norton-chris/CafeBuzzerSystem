@@ -32,11 +32,20 @@ public class CookUI extends Application {
             title.setFont(Font.font(18));
             Text text = new Text("Enter Order Number: ");
             Text error = new Text();
+            Text orderArray = new Text("Order numbers in Queue: ");
             VBox root = new VBox();
+            GridPane pane = new GridPane();
 
             // Make Text box for entering order number
             TextField orderNumber = new TextField();
             orderNumber.setPrefColumnCount(3);
+            orderNumber.setPrefWidth(3);
+
+            // TESTING ORDER NUMBERS
+            // Test values in HashMap
+            for(int i = 0; i < 5; i++){
+                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
+            }
 
             // Create send button
             Button send = new Button("Send");
@@ -44,15 +53,24 @@ public class CookUI extends Application {
             send.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    orderNumber.setText("");
+                    pane.getChildren().remove(pane);
                     System.out.println("Send Button Pressed!");
                     int order = -1;
                     try {
-                        order = Integer.valueOf(orderNumber.getText());
+                        order = Integer.parseInt(orderNumber.getText());
                         error.setFill(Color.TRANSPARENT);
                     } catch (NumberFormatException e) {
                         System.out.println("Please only enter numbers");
                         error.setText("Please only enter numbers, re-enter number");
                         error.setFill(Color.RED);
+                    }
+
+                    // Display order numbers in the HashMap
+                    Object[] array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
+                    for (int x = 0; x < array.length; x++) { // add map from Data class
+                        Label label = new Label(array[x].toString() + " ");
+                        pane.addColumn(x, label);
                     }
 
                     System.out.println("Order number is: " + order);
@@ -61,7 +79,7 @@ public class CookUI extends Application {
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
                         if (emailphone[0] != null)
-                            email.sendOrderReady(emailphone[0]);
+                            //email.sendOrderReady(emailphone[0]);
                         if (emailphone[1] != null)
                             phone.sendMail(emailphone[1]);
                         if (emailphone[0] == null && emailphone [1] == null) {
@@ -78,20 +96,6 @@ public class CookUI extends Application {
                     }
                 }
             });
-
-            // Test values in HashMap
-            for(int i = 0; i < 5; i++){
-                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
-            }
-
-            // Display order numbers in the HashMap
-            Object[] array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
-            Text orderArray = new Text("Order numbers in Queue: ");
-            GridPane pane = new GridPane();
-            for (int x = 0; x < array.length; x++) { // add map from Data class
-                Label label = new Label(array[x].toString() + " ");
-                pane.addColumn(x, label);
-            }
 
             // Setup scene and add everything to it
             root.getChildren().addAll(title, text, orderNumber, send, error, orderArray, pane);
