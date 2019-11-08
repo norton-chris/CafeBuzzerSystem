@@ -52,8 +52,8 @@ public class UserUI extends Application
                         email.sendInitial(emailReceive);
                     }
                     if(!phoneNumTxt.getText().isEmpty()){
-                        Integer phoneReceive = Integer.parseInt(phoneNumTxt.getText());
-
+                        String phoneReceive = phoneNumTxt.getText();
+                        phone.sendInitial(phoneReceive);
                     }
                     vbox.getChildren().clear();
                     Text loading = new Text( WIDTH/2, HEIGHT/2, "Sending your notification!");
@@ -68,7 +68,7 @@ public class UserUI extends Application
             }
         });
 
-        vbox.getChildren().addAll(emailLabel, emailTxt, send, phoneLabel, phoneNumTxt);
+        vbox.getChildren().addAll(emailLabel, emailTxt, phoneLabel, phoneNumTxt, send);
         Scene scene = new Scene(vbox, WIDTH, HEIGHT);
         stage.setScene(scene);
         stage.show();

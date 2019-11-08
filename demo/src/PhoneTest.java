@@ -77,15 +77,15 @@ class PhoneTest {
             assert false;
         }
     }
-
-    @Test
-    void sendMail() {
-        try {
-            phone.sendMail("999 999 9999");
-        } catch (MessagingException e) {
-            assert true;
-            return;
-        }
-        assert false;
-    }
+//
+//    @Test
+//    void sendMail() {
+//        try {
+//            phone.sendMail("999 999 9999");
+//        } catch (MessagingException e) {
+//            assert true;
+//            return;
+//        }
+//        assert false;
+//    }
 }
