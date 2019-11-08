@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Set;
 
 //holds the phone number and/or email of a user
 //holds flags to tell if users want email, text, or both.
@@ -53,6 +54,22 @@ public class MessageBox {
     //removes and returns a message from the box
     public Message removeMessage(int orderNum) {
         return orders.remove(orderNum);
+    }
+
+    public Set<Integer> getKeys(){
+        return orders.keySet();
+    }
+
+    public String[] getEmailPhone(int orderNumber) throws NullPointerException{
+        String[] emailphone = new String[2];
+        Message m = orders.get(orderNumber);
+        if(m == null)
+            throw new NullPointerException();
+        if (m.emailFlag)
+            emailphone[0] = m.getEmail();
+        if (m.pNumFlag)
+            emailphone[1] = m.getPhoneNum();
+        return emailphone;
     }
 
 }
