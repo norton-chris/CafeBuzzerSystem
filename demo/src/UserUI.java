@@ -36,7 +36,7 @@ public class UserUI extends Application
         Label phoneLabel = new Label("Phone Number: ");
 
         try{
-            email.sendMail(emailTxt.getText());
+            email.sendInitial(emailTxt.getText());
         }
         catch(Exception ex){
             System.out.println(ex.getStackTrace());

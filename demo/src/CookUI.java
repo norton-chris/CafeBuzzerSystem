@@ -13,8 +13,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 
 public class CookUI extends Application {
+
+    GridPane pane = new GridPane();
+    MessageBox msg = new MessageBox();
+    TextField orderNumber = new TextField();
+    Object[] array = msg.getKeys().toArray();
+    Text error = new Text();
 
     public static void main(String[] args) {
         launch(args);
@@ -25,27 +32,30 @@ public class CookUI extends Application {
         try {
             Email email = new Email();
             Phone phone = new Phone();
-            MessageBox msg = new MessageBox();
 
             // Create the Text
             Text title = new Text("Cafe Notification System");
             title.setFont(Font.font(18));
             Text text = new Text("Enter Order Number: ");
-            Text error = new Text();
             Text orderArray = new Text("Order numbers in Queue: ");
             VBox root = new VBox();
-            GridPane pane = new GridPane();
+
 
             // Make Text box for entering order number
-            TextField orderNumber = new TextField();
             orderNumber.setPrefColumnCount(3);
             orderNumber.setPrefWidth(3);
 
             // TESTING ORDER NUMBERS
             // Test values in HashMap
-            for(int i = 0; i < 5; i++){
-                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
-            }
+//            for(int i = 0; i < 5; i++){
+//                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
+//            }
+
+            msg.putMessage(0, "", "");
+            msg.putMessage(1, "", "");
+            msg.putMessage(2, "", "");
+
+            updateGridPane();
 
             // Create send button
             Button send = new Button("Send");
@@ -53,12 +63,11 @@ public class CookUI extends Application {
             send.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    orderNumber.setText("");
-                    pane.getChildren().remove(pane);
+                    pane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 0);
                     System.out.println("Send Button Pressed!");
                     int order = -1;
                     try {
-                        order = Integer.parseInt(orderNumber.getText());
+                        System.out.println(order = Integer.parseInt(orderNumber.getText()));
                         error.setFill(Color.TRANSPARENT);
                     } catch (NumberFormatException e) {
                         System.out.println("Please only enter numbers");
@@ -66,27 +75,29 @@ public class CookUI extends Application {
                         error.setFill(Color.RED);
                     }
 
-                    // Display order numbers in the HashMap
-                    Object[] array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
-                    for (int x = 0; x < array.length; x++) { // add map from Data class
-                        Label label = new Label(array[x].toString() + " ");
-                        pane.addColumn(x, label);
-                    }
+                    updateGridPane();
 
-                    System.out.println("Order number is: " + order);
+                    String printOrder = orderNumber.getText();
+                    System.out.println("Order number is: " + printOrder);
                     // then check if the order number is in the HashMap
                     // if it is check for !null email and/or phone number
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
                         if (emailphone[0] != null)
-                            //email.sendOrderReady(emailphone[0]);
+                            email.sendOrderReady(emailphone[0]);
                         if (emailphone[1] != null)
-                            phone.sendMail(emailphone[1]);
+                            phone.sendOrderReady(emailphone[1]);
+                        System.out.println("Sent email and/or text");
                         if (emailphone[0] == null && emailphone [1] == null) {
                             System.out.println("Order number doesn't exist");
-                            error.setText("Order number does not exist, please make sure you type the correct number");
+                            error.setText("Order number " + order + " does not exist, please make sure you type the correct number");
                             error.setFill(Color.RED);
                         }
+
+                        updateGridPane();
+                        orderNumber.setText("");
+                    } catch (SendFailedException e){
+                        System.out.println("email send failed");
                     } catch (MessagingException e) {
                         e.printStackTrace();
                     } catch (NullPointerException e){
@@ -115,7 +126,18 @@ public class CookUI extends Application {
             // Display the Stage
             stage.show();
         }catch (Exception e){
-            System.out.println("error");
+            e.printStackTrace();
+        }
+    }
+
+    public void updateGridPane(){
+        pane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 0);
+
+        // Display order numbers in the HashMap
+        array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
+        for (int x = 0; x < array.length; x++) { // add map from Data class
+            Label label = new Label(array[x].toString() + " ");
+            pane.addColumn(x, label);
         }
     }
 

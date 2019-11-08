@@ -81,7 +81,7 @@ class PhoneTest {
     @Test
     void sendMail() {
         try {
-            phone.sendMail("999 999 9999");
+            phone.sendInitial("999 999 9999");
         } catch (MessagingException e) {
             assert true;
             return;

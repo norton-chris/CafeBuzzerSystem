@@ -53,7 +53,7 @@ public class Phone {
             String recipientWithAt = recipient + carriers.get(i);
             Message message = initialMessage(session, myEmail, recipientWithAt);
             Transport.send(message);
-            //System.out.println("Initial Notification sent for" + carriers.get(i));
+            System.out.println("Initial Notification sent for" + carriers.get(i));
         }
     }
 
@@ -84,8 +84,9 @@ public class Phone {
             String recipientWithAt = recipient + carriers.get(i);
             Message message1 = orderMessage(session, myEmail, recipientWithAt);
             Transport.send(message1);
-            //System.out.println("Order Notification sent for " + carriers.get(i));
+            System.out.println("Order Notification sent for " + carriers.get(i));
         }
+        carriers.clear();
     }
 
     /**
