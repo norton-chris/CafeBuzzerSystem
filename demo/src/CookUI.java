@@ -12,6 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
+
 public class CookUI extends Application {
 
     public static void main(String[] args) {
@@ -23,6 +25,7 @@ public class CookUI extends Application {
         try {
             Email email = new Email();
             Phone phone = new Phone();
+            MessageBox msg = new MessageBox();
 
             // Create the Text
             Text title = new Text("Cafe Notification System");
@@ -55,16 +58,38 @@ public class CookUI extends Application {
                     System.out.println("Order number is: " + order);
                     // then check if the order number is in the HashMap
                     // if it is check for !null email and/or phone number
-                    // send email and/or text
+                    try {
+                        String[] emailphone = msg.getEmailPhone(order);
+                        if (emailphone[0] != null)
+                            email.sendOrderReady(emailphone[0]);
+                        if (emailphone[1] != null)
+                            phone.sendMail(emailphone[1]);
+                        if (emailphone[0] == null && emailphone [1] == null) {
+                            System.out.println("Order number doesn't exist");
+                            error.setText("Order number does not exist, please make sure you type the correct number");
+                            error.setFill(Color.RED);
+                        }
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    } catch (NullPointerException e){
+                        System.out.println("Order number doesn't exist");
+                        error.setText("Order number does not exist, please make sure you type the correct number");
+                        error.setFill(Color.RED);
+                    }
                 }
             });
 
+            // Test values in HashMap
+            for(int i = 0; i < 5; i++){
+                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
+            }
+
             // Display order numbers in the HashMap
-            String array[] = {"45", "112", "56", "78"}; // instead of this get order numbers from the HashMap
+            Object[] array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
             Text orderArray = new Text("Order numbers in Queue: ");
             GridPane pane = new GridPane();
             for (int x = 0; x < array.length; x++) { // add map from Data class
-                Label label = new Label(array[x] + " ");
+                Label label = new Label(array[x].toString() + " ");
                 pane.addColumn(x, label);
             }
 

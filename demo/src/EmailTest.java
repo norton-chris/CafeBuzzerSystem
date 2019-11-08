@@ -11,25 +11,25 @@ class EmailTest {
     }
 
     @Test
-    void sendMail() throws MessagingException {
+    void sendInitial() throws MessagingException {
         Email email = new Email();
-        email.sendMail("dummybuzzer@gmail.com");
+        email.sendInitial("dummybuzzer@gmail.com");
     }
 
     @Test
-    void sendMail1() throws MessagingException {
+    void sendInitial1() throws MessagingException {
         Email email = new Email();
         assertThrows(
                 SendFailedException.class,
-                () -> email.sendMail("dummybuzzer"));
+                () -> email.sendInitial("dummybuzzer"));
     }
 
     @Test
-    void sendMail2() throws MessagingException {
+    void sendInitial2() throws MessagingException {
         Email email = new Email();
         assertThrows(
                 SendFailedException.class,
-                () -> email.sendMail("cnortonmtu.edu"));
+                () -> email.sendInitial("cnortonmtu.edu"));
     }
 
     @Test
