@@ -81,7 +81,7 @@ public class CookUI extends Application {
                         if (emailphone[0] != null)
                             //email.sendOrderReady(emailphone[0]);
                         if (emailphone[1] != null)
-                            phone.sendMail(emailphone[1]);
+                            phone.sendOrderReady(emailphone[1]);
                         if (emailphone[0] == null && emailphone [1] == null) {
                             System.out.println("Order number doesn't exist");
                             error.setText("Order number does not exist, please make sure you type the correct number");

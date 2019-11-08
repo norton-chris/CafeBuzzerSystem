@@ -11,6 +11,12 @@ import java.util.logging.Logger;
 public class Phone {
 
     private static ArrayList<String> carriers = new ArrayList<String>();
+    int status =0;
+
+    public int getStatus()
+    {
+        return status;
+    }
 
     public String parsePhoneNumber(String input) throws BadPhoneNumberException{
         String chunks[] = input.split("[ ,./)(-]+");
@@ -53,6 +59,7 @@ public class Phone {
             String recipientWithAt = recipient + carriers.get(i);
             Message message = initialMessage(session, myEmail, recipientWithAt);
             Transport.send(message);
+            status = 1;
             //System.out.println("Initial Notification sent for" + carriers.get(i));
         }
     }
