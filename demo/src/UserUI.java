@@ -56,13 +56,6 @@ public class UserUI extends Application
         Label emailLabel = new Label("Email: ");
         Label phoneLabel = new Label("Phone Number: ");
 
-
-        try{
-            email.sendInitial(emailTxt.getText());
-        }
-        catch(Exception ex){
-            System.out.println(ex.getStackTrace());
-        }
         //stage 2 construction
         ImageView loadingGif = new ImageView();
         loadingGif.setImage(new Image("loadingCircles.gif"));
