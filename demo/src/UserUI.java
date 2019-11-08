@@ -31,6 +31,7 @@ public class UserUI extends Application
     public void start(Stage stage)
     {
         Stage stage2 = new Stage();
+        int status = 0;
 
         int HEIGHT = 600;
         int WIDTH = 1000;
@@ -57,12 +58,6 @@ public class UserUI extends Application
         Label phoneLabel = new Label("Phone Number: ");
 
 
-        try{
-            email.sendInitial(emailTxt.getText());
-        }
-        catch(Exception ex){
-            System.out.println(ex.getStackTrace());
-        }
         //stage 2 construction
         ImageView loadingGif = new ImageView();
         loadingGif.setImage(new Image("loadingCircles.gif"));
@@ -78,7 +73,6 @@ public class UserUI extends Application
         send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                int status = 0;
                 System.out.println("Send Button Pressed!");
                 try {
                     if(!emailTxt.getText().isEmpty()) {
@@ -103,7 +97,7 @@ public class UserUI extends Application
                     else{
                         System.out.println("ERROR IN SENDING EMAIL CAUGHT IN UI");
                     }
-
+//
                     if(phone.getStatus()==1)
                     {
                         stage2.hide();
