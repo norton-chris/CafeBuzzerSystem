@@ -123,11 +123,18 @@ public class Email {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter your email: ");
                 String input = scanner.nextLine();
+                input = email.parseEmail(input);
                 email.sendInitial(input);
                 invalid = false;
             } catch (SendFailedException e) {
                 System.out.println("Please enter a valid email address");
             }
         }
+    }
+
+    public String parseEmail(String email) {
+        if (!email.contains("@"))
+            return email + "@mtu.edu";
+        return email;
     }
 }
