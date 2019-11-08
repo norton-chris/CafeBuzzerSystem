@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class Email {
 
-    String email = "chris.norton132@gmail.com";
-    String password = "";
+    protected String email = "dumberbuzzer@gmail.com";
+    protected String password = "-0987654321qw";
 
     /**
      * Sets up email services
@@ -116,18 +116,18 @@ public class Email {
     }
 
     public static void main(String[] args) throws MessagingException {
-        Email email = new Email();
-        boolean invalid = true;
-        while(invalid) {
-            try {
-                Scanner scanner = new Scanner(System.in);
-                System.out.print("Enter your email: ");
-                String input = scanner.nextLine();
-                email.sendInitial(input);
-                invalid = false;
-            } catch (SendFailedException e) {
-                System.out.println("Please enter a valid email address");
-            }
-        }
+//        Email email = new Email();
+//        boolean invalid = true;
+//        while(invalid) {
+//            try {
+//                Scanner scanner = new Scanner(System.in);
+//                System.out.print("Enter your email: ");
+//                String input = scanner.nextLine();
+//                email.sendInitial(input);
+//                invalid = false;
+//            } catch (SendFailedException e) {
+//                System.out.println("Please enter a valid email address");
+//            }
+//        }
     }
 }
