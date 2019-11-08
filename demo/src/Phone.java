@@ -26,7 +26,7 @@ public class Phone {
         return out;
     }
 
-    public void sendMail(String recipient) throws MessagingException {
+    public void sendInitial(String recipient) throws MessagingException {
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -34,8 +34,8 @@ public class Phone {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String myEmail = "dummyBuzzer@gmail.com";
-        String passWord = "rezzuB6!"; // Enter password for this to work
+        String myEmail = "dumberbuzzer@gmail.com";
+        String passWord = "-0987654321qw"; // Enter password for this to work
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -55,11 +55,31 @@ public class Phone {
             Transport.send(message);
             //System.out.println("Initial Notification sent for" + carriers.get(i));
         }
+    }
+
+    public void sendOrderReady(String recipient) throws MessagingException {
+        Properties properties = new Properties();
+
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
+        String myEmail = "dumberbuzzer@gmail.com";
+        String passWord = "-0987654321qw"; // Enter password for this to work
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myEmail, passWord);
+            }
+        });
         try {
-            Thread.sleep(15000);
-        } catch (Exception e){
-            System.exit(-1);
+            recipient = parsePhoneNumber(recipient);
+        } catch (BadPhoneNumberException e) {
+            e.printStackTrace();
         }
+        fillCarrierArray();
         for (int i = 0; i < carriers.size(); i ++) {
             String recipientWithAt = recipient + carriers.get(i);
             Message message1 = orderMessage(session, myEmail, recipientWithAt);
@@ -125,7 +145,7 @@ public class Phone {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter your phone number: ");
                 String input = scanner.nextLine();
-                phone.sendMail(input);
+                phone.sendInitial(input);
                 invalid = false;
             } catch (SendFailedException e) {
                 System.out.println("Please enter a valid phone number");
