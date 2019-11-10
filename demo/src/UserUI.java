@@ -30,6 +30,7 @@ public class UserUI extends Application
     @Override
     public void start(Stage stage)
     {
+        MessageBox msgBox = new MessageBox();
         Stage stage2 = new Stage();
         int status = 0;
 
@@ -47,15 +48,20 @@ public class UserUI extends Application
         stage2.setTitle("Sending Notification!");
 
         TextField phoneNumTxt = new TextField();
-
-        phoneNumTxt.setMaxSize(600, 100);
         TextField emailTxt = new TextField();
-        emailTxt.setMaxSize(600, 100);
-        emailTxt.setAlignment(Pos.CENTER);
+        TextField orderNumTxt = new TextField();
         Button send = new Button("Send");
-
         Label emailLabel = new Label("Email: ");
         Label phoneLabel = new Label("Phone Number: ");
+        Label orderNum = new Label("Order Number: ");
+
+        phoneNumTxt.setMaxSize(600, 100);
+        orderNumTxt.setMaxSize(600, 100);
+        emailTxt.setMaxSize(600, 100);
+
+
+
+
 
         //stage 2 construction
         ImageView loadingGif = new ImageView();
@@ -76,15 +82,18 @@ public class UserUI extends Application
                 try {
                     if(!emailTxt.getText().isEmpty()) {
                         String emailReceive = emailTxt.getText();
+                        int orderNumPars = Integer.parseInt(orderNumTxt.getText());
                         stage.hide();
                         stage2.show();
-                        email.sendInitial(emailReceive);
+                        msgBox.putMessage(orderNumPars, emailReceive, "");
                     }
                     if(!phoneNumTxt.getText().isEmpty()){
                         String phoneReceive = phoneNumTxt.getText();
+                        int orderNumPars = Integer.parseInt(orderNumTxt.getText());
                         stage.hide();
                         stage2.show();
                         phone.sendInitial(phoneReceive);
+                        msgBox.putMessage(orderNumPars, "", phoneReceive);
                     }
 
 
@@ -93,19 +102,12 @@ public class UserUI extends Application
                         stage2.hide();
                         stage.show();
                     }
-                    else{
-                        System.out.println("ERROR IN SENDING EMAIL CAUGHT IN UI");
-                    }
-//
+
                     if(phone.getStatus()==1)
                     {
                         stage2.hide();
                         stage.show();
                     }
-                    else{
-                        System.out.println("ERROR IN SENDING EMAIL CAUGHT IN UI");
-                    }
-
 
                 } catch (Exception e) {
                     System.out.println("PROBLEM IN retrieve EMAIL!");
@@ -114,7 +116,7 @@ public class UserUI extends Application
             }
         });
 
-        vbox.getChildren().addAll(emailLabel, emailTxt, phoneLabel, phoneNumTxt, send);
+        vbox.getChildren().addAll(emailLabel, emailTxt, phoneLabel, phoneNumTxt, orderNum, orderNumTxt, send);
         pane.getChildren().addAll(loading, loadingGif);
 
         Scene scene = new Scene(vbox, WIDTH, HEIGHT);
