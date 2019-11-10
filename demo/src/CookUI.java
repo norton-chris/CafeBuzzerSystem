@@ -84,9 +84,9 @@ public class CookUI extends Application {
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
                         if (emailphone[0] != null)
-                            email.sendOrderReady(emailphone[0]);
+                            //email.sendOrderReady(emailphone[0]);
                         if (emailphone[1] != null)
-                            phone.sendOrderReady(emailphone[1]);
+                            //phone.sendOrderReady(emailphone[1]);
                         System.out.println("Sent email and/or text");
                         if (emailphone[0] == null && emailphone [1] == null) {
                             System.out.println("Order number doesn't exist");
@@ -96,11 +96,12 @@ public class CookUI extends Application {
 
                         updateGridPane();
                         orderNumber.setText("");
-                    } catch (SendFailedException e){
+                        msg.removeMessage(order);
+                    } /*catch (SendFailedException e){
                         System.out.println("email send failed");
                     } catch (MessagingException e) {
                         e.printStackTrace();
-                    } catch (NullPointerException e){
+                    } */catch (NullPointerException e){
                         System.out.println("Order number doesn't exist");
                         error.setText("Order number does not exist, please make sure you type the correct number");
                         error.setFill(Color.RED);

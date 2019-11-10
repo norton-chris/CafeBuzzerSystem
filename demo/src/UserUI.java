@@ -78,13 +78,13 @@ public class UserUI extends Application
                         String emailReceive = emailTxt.getText();
                         stage.hide();
                         stage2.show();
-                        email.sendInitial(emailReceive);
+                        //email.sendInitial(emailReceive);
                     }
                     if(!phoneNumTxt.getText().isEmpty()){
                         String phoneReceive = phoneNumTxt.getText();
                         stage.hide();
                         stage2.show();
-                        phone.sendInitial(phoneReceive);
+                        //phone.sendInitial(phoneReceive);
                     }
 
 
@@ -96,7 +96,7 @@ public class UserUI extends Application
                     else{
                         System.out.println("ERROR IN SENDING EMAIL CAUGHT IN UI");
                     }
-//
+
                     if(phone.getStatus()==1)
                     {
                         stage2.hide();
@@ -116,6 +116,12 @@ public class UserUI extends Application
 
         vbox.getChildren().addAll(emailLabel, emailTxt, phoneLabel, phoneNumTxt, send);
         pane.getChildren().addAll(loading, loadingGif);
+
+        // Set the Properties of the Stage
+        stage.setX(100);
+        stage.setY(200);
+        stage.setMinHeight(300);
+        stage.setMinWidth(400);
 
         Scene scene = new Scene(vbox, WIDTH, HEIGHT);
         Scene scene2 = new Scene(pane, 600, 400, Color.BLACK);
