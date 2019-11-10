@@ -9,14 +9,21 @@ import java.util.logging.Logger;
 
 public class Email {
 
-    String email = "chris.norton132@gmail.com";
-    String password = "";
+    public int status = 0;
+    protected String email = "dumberbuzzer@gmail.com";
+    protected String password = "-0987654321qw";
 
+
+
+    public int getStatus()
+    {
+        return status;
+    }
     /**
      * Sets up email services
      * then actually sends the email
      *
-     * @param recipient 
+     * @param recipient
      * @throws MessagingException
      */
     public void sendInitial(String recipient) throws MessagingException, SendFailedException {
@@ -39,6 +46,8 @@ public class Email {
             Transport.send(message);
 
             System.out.println("Notification sent!");
+
+            status = 1;
         } catch (SendFailedException e){
             throw new SendFailedException();
         } catch (AuthenticationFailedException e){
@@ -123,11 +132,18 @@ public class Email {
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Enter your email: ");
                 String input = scanner.nextLine();
+                input = email.parseEmail(input);
                 email.sendInitial(input);
                 invalid = false;
             } catch (SendFailedException e) {
                 System.out.println("Please enter a valid email address");
             }
         }
+    }
+
+    public String parseEmail(String email) {
+        if (!email.contains("@"))
+            return email + "@mtu.edu";
+        return email;
     }
 }

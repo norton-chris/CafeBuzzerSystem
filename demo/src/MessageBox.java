@@ -70,6 +70,7 @@ public class MessageBox implements Serializable {
             emailphone[0] = m.getEmail();
         if (m.pNumFlag)
             emailphone[1] = m.getPhoneNum();
+        orders.remove(orderNumber);
         return emailphone;
     }
 
