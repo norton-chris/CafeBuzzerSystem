@@ -85,7 +85,9 @@ public class UserUI extends Application
                         int orderNumPars = Integer.parseInt(orderNumTxt.getText());
                         stage.hide();
                         stage2.show();
+                        email.sendInitial(emailReceive);
                         msgBox.putMessage(orderNumPars, emailReceive, "");
+                        emailTxt.clear();
                     }
                     if(!phoneNumTxt.getText().isEmpty()){
                         String phoneReceive = phoneNumTxt.getText();
@@ -94,8 +96,10 @@ public class UserUI extends Application
                         stage2.show();
                         phone.sendInitial(phoneReceive);
                         msgBox.putMessage(orderNumPars, "", phoneReceive);
-                    }
+                        phoneNumTxt.clear();
 
+                    }
+                    orderNumTxt.clear();
 
                     if(email.getStatus()==1)
                     {

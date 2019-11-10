@@ -44,10 +44,10 @@ public class Email {
 
             Message message = initialMessage(session, email, recipient);
             Transport.send(message);
-
+            status = 1;
             System.out.println("Notification sent!");
 
-            status = 1;
+
         } catch (SendFailedException e){
             throw new SendFailedException();
         } catch (AuthenticationFailedException e){
