@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 
 //holds the phone number and/or email of a user
 //holds flags to tell if users want email, text, or both.
-public class MessageBox {
+public class MessageBox implements Serializable {
 
     private class Message {
         private String email;
