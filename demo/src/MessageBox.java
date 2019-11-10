@@ -1,12 +1,13 @@
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Observable;
 import java.util.Set;
 
 //holds the phone number and/or email of a user
 //holds flags to tell if users want email, text, or both.
-public class MessageBox implements Serializable {
+public class MessageBox extends Observable implements Serializable {
 
-    private class Message {
+    class Message {
         private String email;
         private String phoneNum;
         private boolean pNumFlag = false;
@@ -49,12 +50,26 @@ public class MessageBox implements Serializable {
     //inserts a new message into the box
     public Message putMessage(int orderNum, String email, String pNum) {
         Message newOrder = new Message(email, pNum);
-        return orders.put(orderNum, newOrder);
+        orders.put(orderNum, newOrder);
+        setChanged();
+        notifyObservers();
+        return newOrder;
     }
 
     //removes and returns a message from the box
     public Message removeMessage(int orderNum) {
-        return orders.remove(orderNum);
+        Message toRemove = orders.remove(orderNum);
+        setChanged();
+        notifyObservers();
+        return toRemove;
+    }
+
+    public HashMap<Integer, Message> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(HashMap<Integer, Message> newOrders) {
+        orders = newOrders;
     }
 
     public Set<Integer> getKeys(){
