@@ -27,13 +27,18 @@ public class OrderIOManager implements Observer {
         }
     }
 
-    public void readHashMap() {
+    public HashMap<Integer, MessageBox.Message> readHashMap() {
+        HashMap<Integer, MessageBox.Message> rMap = null;
         try {
             messageBox.setOrders((HashMap<Integer, MessageBox.Message>) objIn.readObject());
             objIn = new ObjectInputStream(fileIn);
+            rMap = (HashMap<Integer, MessageBox.Message>) objIn.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //update contents of messageBox
+        messageBox.setOrders(rMap);
+        return rMap;
     }
 
     public void writeHashMap() {
@@ -50,16 +55,21 @@ public class OrderIOManager implements Observer {
 
     }
 
-    public static void main (String args[]) {
+    /*public static void main (String args[]) {
         MessageBox box = new MessageBox();
+        box.putMessage(45, "lsstone@mtu.edu", "7158675309");
         File hashFile = new File(filePath);
         try {
             ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(hashFile));
+
+            HashMap<Integer, MessageBox.Message> m = (HashMap<Integer, MessageBox.Message>) objIn.readObject();
+            System.out.println(m.get(45).getEmail());
+
             ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(hashFile));
             objOut.writeObject(box.getOrders());
             objOut.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
