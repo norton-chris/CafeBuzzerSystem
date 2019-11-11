@@ -49,4 +49,17 @@ public class OrderIOManager implements Observer {
     public void update(Observable o, Object arg) {
 
     }
+
+    public static void main (String args[]) {
+        MessageBox box = new MessageBox();
+        File hashFile = new File(filePath);
+        try {
+            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(hashFile));
+            ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(hashFile));
+            objOut.writeObject(box.getOrders());
+            objOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
