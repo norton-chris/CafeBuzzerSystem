@@ -5,7 +5,7 @@ import java.util.Observer;
 
 public class OrderIOManager implements Observer {
 
-    private static final String filePath = "orders.buz";
+    private static final String filePath = "C:/Users/chris/Documents/CafeBuzzerSystem/demo/orders.buz";
     private File hashFile;
     private FileOutputStream fileOut;
     private FileInputStream fileIn;
@@ -48,5 +48,13 @@ public class OrderIOManager implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+
+    public static void main (String[] args){
+        MessageBox msg = new MessageBox();
+        OrderIOManager io = new OrderIOManager(msg);
+        msg.putMessage(69, "asdsdf", "12840274");
+
+        io.writeHashMap();
     }
 }
