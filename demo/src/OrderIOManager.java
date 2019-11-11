@@ -50,11 +50,16 @@ public class OrderIOManager implements Observer {
 
     }
 
-    public static void main (String[] args){
-        MessageBox msg = new MessageBox();
-        OrderIOManager io = new OrderIOManager(msg);
-        msg.putMessage(69, "asdsdf", "12840274");
-
-        io.writeHashMap();
+    public static void main (String args[]) {
+        MessageBox box = new MessageBox();
+        File hashFile = new File(filePath);
+        try {
+            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(hashFile));
+            ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(hashFile));
+            objOut.writeObject(box.getOrders());
+            objOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
