@@ -22,6 +22,7 @@ public class CookUI extends Application {
     TextField orderNumber = new TextField();
     Object[] array = msg.getKeys().toArray();
     Text error = new Text();
+    OrderIOManager io = new OrderIOManager(msg);
 
     public static void main(String[] args) {
         launch(args);
@@ -51,9 +52,9 @@ public class CookUI extends Application {
 //                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
 //            }
 
-            msg.putMessage(0, "", "");
-            msg.putMessage(1, "", "");
-            msg.putMessage(2, "", "");
+            msg.putMessage(0, "c", "3");
+            msg.putMessage(1, "c", "2");
+            msg.putMessage(2, "c", "1");
 
             updateGridPane();
 
@@ -135,6 +136,7 @@ public class CookUI extends Application {
         pane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 0);
 
         // Display order numbers in the HashMap
+        io.readHashMap();
         array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
         for (int x = 0; x < array.length; x++) { // add map from Data class
             Label label = new Label(array[x].toString() + " ");

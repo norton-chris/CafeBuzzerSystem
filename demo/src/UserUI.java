@@ -39,6 +39,7 @@ public class UserUI extends Application
 
         Email email = new Email();
         Phone phone = new Phone();
+        OrderIOManager io = new OrderIOManager(msgBox);
 
         VBox vbox = new VBox();
         Pane pane = new Pane();
@@ -116,6 +117,7 @@ public class UserUI extends Application
                         stage.show();
                     }
 
+                    io.writeHashMap();
                 } catch (Exception e) {
                     System.out.println("PROBLEM IN retrieve EMAIL!");
                     e.printStackTrace();
