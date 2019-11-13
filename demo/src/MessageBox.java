@@ -94,4 +94,7 @@ public class MessageBox extends Observable implements Serializable {
         return emailphone;
     }
 
+    public boolean orderNumberAlreadyExists(int newOrderNum) {
+        return orders.containsKey(newOrderNum);
+    }
 }
