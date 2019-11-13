@@ -23,6 +23,7 @@ public class CookUI extends Application {
     TextField orderNumber = new TextField();
     Object[] array = msg.getKeys().toArray();
     Text error = new Text();
+    OrderIOManager io = new OrderIOManager(msg);
 
     public static void main(String[] args) {
         launch(args);
@@ -127,7 +128,7 @@ public class CookUI extends Application {
                         e.printStackTrace();
                     } */catch (NullPointerException e){
                         System.out.println("Order number doesn't exist");
-                        error.setText("Order number does not exist, please make sure you type the correct number");
+                        error.setText("Order number " + order + " does not exist, please make sure you type the correct number");
                         error.setFill(Color.RED);
                     }
                 }
@@ -159,6 +160,7 @@ public class CookUI extends Application {
         pane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 0);
 
         // Display order numbers in the HashMap
+        io.readHashMap();
         array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
         for (int x = 0; x < array.length; x++) { // add map from Data class
             Label label = new Label(array[x].toString() + " ");
