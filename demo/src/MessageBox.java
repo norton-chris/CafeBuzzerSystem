@@ -73,7 +73,12 @@ public class MessageBox extends Observable implements Serializable {
     }
 
     public Set<Integer> getKeys(){
-        return orders.keySet();
+        try {
+            return orders.keySet();
+        } catch (NullPointerException e){
+            System.err.println("There are no orders numbers in the HashMap");
+        }
+        return null; // Shouldn't hit this line if there are order numbers in the hashmap
     }
 
     public String[] getEmailPhone(int orderNumber) throws NullPointerException{
