@@ -73,4 +73,7 @@ public class MessageBox {
         return emailphone;
     }
 
+    public boolean orderNumberAlreadyExists(int newOrderNum) {
+        return orders.containsKey(newOrderNum);
+    }
 }

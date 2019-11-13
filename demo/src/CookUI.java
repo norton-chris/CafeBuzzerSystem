@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -51,8 +52,8 @@ public class CookUI extends Application {
 //                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
 //            }
 
-            msg.putMessage(0, "", "");
-            msg.putMessage(1, "", "");
+            msg.putMessage(0, "", "6165668263");
+            msg.putMessage(1, "", "6129637757");
             msg.putMessage(2, "", "");
 
             updateGridPane();
@@ -83,11 +84,34 @@ public class CookUI extends Application {
                     // if it is check for !null email and/or phone number
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
+                        System.out.println("in the first try");
                         if (emailphone[0] != null)
+                            System.out.println("in first if");
                             //email.sendOrderReady(emailphone[0]);
-                        if (emailphone[1] != null)
-                            //phone.sendOrderReady(emailphone[1]);
-                        System.out.println("Sent email and/or text");
+                        if (emailphone[1] != null) {
+                            System.out.println("in if for if phone number isn't null");
+
+                            class MyThread implements Runnable {
+                                String name;
+                                Thread t;
+                                MyThread (String threadname){
+                                    name = threadname;
+                                    t = new Thread(this, name);
+                                    System.out.println("New thread: " + t);
+                                    t.start();
+                                }
+                                public void run() {
+                                    try {
+                                        phone.sendOrderReady(emailphone[1]);
+                                        System.out.println("order message sent");
+                                    }catch (MessagingException e) {
+                                        System.out.println(name + "Messaging exception nerd");
+                                    }
+                                    System.out.println(name + " exiting.");
+                                }
+                            }
+                            new MyThread(printOrder + "SendMessage");
+                        }
                         if (emailphone[0] == null && emailphone [1] == null) {
                             System.out.println("Order number doesn't exist");
                             error.setText("Order number " + order + " does not exist, please make sure you type the correct number");
