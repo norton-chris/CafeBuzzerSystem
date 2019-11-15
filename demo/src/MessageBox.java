@@ -5,9 +5,9 @@ import java.util.Set;
 
 //holds the phone number and/or email of a user
 //holds flags to tell if users want email, text, or both.
-public class MessageBox extends Observable implements Serializable {
+public class MessageBox extends Observable {
 
-    class Message implements Serializable {
+    public class Message {
         private String email;
         private String phoneNum;
         private boolean pNumFlag = false;

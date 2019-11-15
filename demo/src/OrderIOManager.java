@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Order;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Observable;
@@ -7,44 +9,45 @@ public class OrderIOManager implements Observer {
 
     private static final String filePath = "orders.buz";
     private File hashFile;
-    private FileOutputStream fileOut;
-    private FileInputStream fileIn;
-    private ObjectOutputStream objOut;
-    private ObjectInputStream objIn;
+    private FileWriter fileOut;
+    private FileReader bufFeed;
+    private BufferedReader fileIn;
 
     private MessageBox messageBox;
 
     public OrderIOManager (MessageBox mBox) {
         messageBox = mBox;
-        hashFile = new File(filePath);
         try {
-            fileIn = new FileInputStream(hashFile);
-            fileOut = new FileOutputStream(hashFile);
-            objIn = new ObjectInputStream(fileIn);
-            objOut = new ObjectOutputStream(fileOut);
+            bufFeed = new FileReader(filePath);
+            fileIn = new BufferedReader(bufFeed);
+            fileOut = new FileWriter(filePath);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public HashMap<Integer, MessageBox.Message> readHashMap() {
-        HashMap<Integer, MessageBox.Message> rMap = null;
+    public MessageBox readHashMap() {
+        String entry = "";
+        MessageBox newBox = new MessageBox();
         try {
-            messageBox.setOrders((HashMap<Integer, MessageBox.Message>) objIn.readObject());
-            objIn = new ObjectInputStream(fileIn);
-            rMap = (HashMap<Integer, MessageBox.Message>) objIn.readObject();
+            while ( (entry = fileIn.readLine()) != null ) {
+                String[] elements = entry.split(" ");
+                newBox.putMessage(Integer.parseInt(elements[0]), elements[1], elements[2]);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         //update contents of messageBox
-        messageBox.setOrders(rMap);
-        return rMap;
+        return newBox;
     }
 
     public void writeHashMap() {
         try {
-            objOut.writeObject(messageBox.getOrders());
-            objOut.flush();
+            for (int k : messageBox.getKeys()) {
+                String[] contacts = messageBox.getEmailPhone(k);
+                fileOut.write(k + " " + contacts[0] + " " + contacts[1]);
+            }
+            fileOut.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,21 +58,18 @@ public class OrderIOManager implements Observer {
 
     }
 
-    /*public static void main (String args[]) {
+    public static void main (String args[]) {
         MessageBox box = new MessageBox();
-        box.putMessage(45, "lsstone@mtu.edu", "7158675309");
+        box.putMessage(45, "testmail@mtu.edu", "7158675309");
+        OrderIOManager io = new OrderIOManager(box);
         File hashFile = new File(filePath);
         try {
-            ObjectInputStream objIn = new ObjectInputStream(new FileInputStream(hashFile));
 
-            HashMap<Integer, MessageBox.Message> m = (HashMap<Integer, MessageBox.Message>) objIn.readObject();
-            System.out.println(m.get(45).getEmail());
-
-            ObjectOutputStream objOut = new ObjectOutputStream(new FileOutputStream(hashFile));
-            objOut.writeObject(box.getOrders());
-            objOut.close();
+            io.writeHashMap();
+            MessageBox newBox = io.readHashMap();
+            System.out.println(newBox.removeMessage(45).getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }
