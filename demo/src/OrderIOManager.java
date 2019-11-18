@@ -27,18 +27,19 @@ public class OrderIOManager implements Observer {
     }
 
     public MessageBox readHashMap() {
+        //make sure message box is empty
+        messageBox.clearOrders();
         String entry = "";
-        MessageBox newBox = new MessageBox();
         try {
             while ( (entry = fileIn.readLine()) != null ) {
                 String[] elements = entry.split(" ");
-                newBox.putMessage(Integer.parseInt(elements[0]), elements[1], elements[2]);
+                messageBox.putMessage(Integer.parseInt(elements[0]), elements[1], elements[2]);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         //update contents of messageBox
-        return newBox;
+        return messageBox;
     }
 
     public void writeHashMap() {
@@ -55,7 +56,7 @@ public class OrderIOManager implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        writeHashMap();
     }
 
     public static void main (String args[]) {
