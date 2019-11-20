@@ -42,6 +42,7 @@ public class Email {
                 }
             });
 
+            recipient = parseEmail(recipient);
             Message message = initialMessage(session, email, recipient);
             Transport.send(message);
             status = 1;
@@ -87,8 +88,9 @@ public class Email {
                     return new PasswordAuthentication(email, password);
                 }
             });
-            Message message1 = orderMessage(session, email, recipient);
 
+            recipient = parseEmail(recipient);
+            Message message1 = orderMessage(session, email, recipient);
             Transport.send(message1);
             System.out.println("Notification sent!");
         } catch (SendFailedException e){

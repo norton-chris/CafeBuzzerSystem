@@ -53,11 +53,8 @@ public class CookUI extends Application {
 //                msg.putMessage(i, "cnorton@mtu.edu", "6129637757");
 //            }
 
-            msg.putMessage(0, "", "6165668263");
-            msg.putMessage(1, "", "6129637757");
-            msg.putMessage(2, "", "");
-
             updateGridPane();
+
 
             // Create send button
             Button send = new Button("Send");
@@ -78,6 +75,7 @@ public class CookUI extends Application {
                     }
 
                     updateGridPane();
+
 
                     String printOrder = orderNumber.getText();
                     System.out.println("Order number is: " + printOrder);
@@ -105,7 +103,7 @@ public class CookUI extends Application {
                                     try {
                                         phone.sendOrderReady(emailphone[1]);
                                         System.out.println("order message sent");
-                                    }catch (MessagingException e) {
+                                    }catch (Exception e) {
                                         System.out.println(name + "Messaging exception nerd");
                                     }
                                     System.out.println(name + " exiting.");
@@ -128,7 +126,7 @@ public class CookUI extends Application {
                         e.printStackTrace();
                     } */catch (NullPointerException e){
                         System.out.println("Order number doesn't exist");
-                        error.setText("Order number " + order + " does not exist, please make sure you type the correct number");
+                        error.setText("Order number " + order + " does not exist, please make sure you type the correct number\nNull pointer");
                         error.setFill(Color.RED);
                     }
                 }
@@ -160,7 +158,7 @@ public class CookUI extends Application {
         pane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == 0);
 
         // Display order numbers in the HashMap
-        io.readHashMap();
+        msg = io.readHashMap();
         array = msg.getKeys().toArray(); // instead of this get order numbers from the HashMap
         for (int x = 0; x < array.length; x++) { // add map from Data class
             Label label = new Label(array[x].toString() + " ");

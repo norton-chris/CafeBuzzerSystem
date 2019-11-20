@@ -18,7 +18,7 @@ public class Phone {
         carriers.add("@messaging.sprintpcs.com");
     }
 
-    int status =0;
+    int status = 0;
 
     public int getStatus()
     {

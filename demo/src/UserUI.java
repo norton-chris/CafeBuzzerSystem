@@ -39,7 +39,7 @@ public class UserUI extends Application
 
         Email email = new Email();
         Phone phone = new Phone();
-        //OrderIOManager io = new OrderIOManager(msgBox);
+        OrderIOManager io = new OrderIOManager(msgBox);
 
         VBox vbox = new VBox();
         Pane pane = new Pane();
@@ -81,24 +81,34 @@ public class UserUI extends Application
             public void handle(ActionEvent event) {
                 System.out.println("Send Button Pressed!");
                 try {
-                    if(!emailTxt.getText().isEmpty()) {
+                    if(!emailTxt.getText().isEmpty() && phoneNumTxt.getText().isEmpty()) {
                         String emailReceive = emailTxt.getText();
                         int orderNumPars = Integer.parseInt(orderNumTxt.getText());
                         stage.hide();
                         stage2.show();
-                        email.sendInitial(emailReceive);
+                        //email.sendInitial(emailReceive);
                         msgBox.putMessage(orderNumPars, emailReceive, "");
                         emailTxt.clear();
                     }
-                    if(!phoneNumTxt.getText().isEmpty()){
+                    else if(!phoneNumTxt.getText().isEmpty() && emailTxt.getText().isEmpty()){
                         String phoneReceive = phoneNumTxt.getText();
                         int orderNumPars = Integer.parseInt(orderNumTxt.getText());
                         stage.hide();
                         stage2.show();
-                        phone.sendInitial(phoneReceive);
+                        //phone.sendInitial(phoneReceive);
                         msgBox.putMessage(orderNumPars, "", phoneReceive);
                         phoneNumTxt.clear();
 
+                    }
+                    else if(!phoneNumTxt.getText().isEmpty() && !emailTxt.getText().isEmpty()){
+                            String emailReceive = emailTxt.getText();
+                            int orderNumPars = Integer.parseInt(orderNumTxt.getText());
+                            String phoneReceive = phoneNumTxt.getText();
+                            stage.hide();
+                            stage2.show();
+                            //email.sendInitial(emailReceive);
+                            msgBox.putMessage(orderNumPars, emailReceive, phoneReceive);
+                            emailTxt.clear();
                     }
                     orderNumTxt.clear();
 
@@ -117,7 +127,7 @@ public class UserUI extends Application
                         stage.show();
                     }
 
-                    //io.writeHashMap();
+                    io.writeHashMap();
                 } catch (Exception e) {
                     System.out.println("PROBLEM IN retrieve EMAIL!");
                     e.printStackTrace();
