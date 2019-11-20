@@ -23,7 +23,7 @@ public class CookUI extends Application {
     TextField orderNumber = new TextField();
     Object[] array = msg.getKeys().toArray();
     Text error = new Text();
-    OrderIOManager io = new OrderIOManager(msg);
+    //OrderIOManager io = new OrderIOManager(msg);
 
     public static void main(String[] args) {
         launch(args);
@@ -88,15 +88,12 @@ public class CookUI extends Application {
                             System.out.println("in first if");
                             //email.sendOrderReady(emailphone[0]);
                         if (emailphone[1] != null) {
-                            System.out.println("in if for if phone number isn't null");
-
-                            class MyThread implements Runnable {
+                            class MyThread implements Runnable { // using thread to avoid unresponsive gui
                                 String name;
                                 Thread t;
                                 MyThread (String threadname){
                                     name = threadname;
                                     t = new Thread(this, name);
-                                    System.out.println("New thread: " + t);
                                     t.start();
                                 }
                                 public void run() {
@@ -106,7 +103,6 @@ public class CookUI extends Application {
                                     }catch (Exception e) {
                                         System.out.println(name + "Messaging exception nerd");
                                     }
-                                    System.out.println(name + " exiting.");
                                 }
                             }
                             new MyThread(printOrder + "SendMessage");

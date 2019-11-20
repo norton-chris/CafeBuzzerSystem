@@ -51,6 +51,7 @@ public class MessageBox extends Observable {
     public Message putMessage(int orderNum, String email, String pNum) {
         Message newOrder = new Message(email, pNum);
         orders.put(orderNum, newOrder);
+        //get the observer's attention
         setChanged();
         notifyObservers();
         return newOrder;
@@ -59,9 +60,14 @@ public class MessageBox extends Observable {
     //removes and returns a message from the box
     public Message removeMessage(int orderNum) {
         Message toRemove = orders.remove(orderNum);
+        //get the observer's attention
         setChanged();
         notifyObservers();
         return toRemove;
+    }
+
+    public void clearOrders() {
+        orders = new HashMap<Integer, Message>();
     }
 
     public HashMap<Integer, Message> getOrders() {
@@ -81,6 +87,8 @@ public class MessageBox extends Observable {
         return null; // Shouldn't hit this line if there are order numbers in the hashmap
     }
 
+    //helper method for email and phone classes to get relevant information?
+    //unsure if necessary
     public String[] getEmailPhone(int orderNumber) throws NullPointerException{
         String[] emailphone = new String[2];
         Message m = orders.get(orderNumber);
@@ -91,6 +99,9 @@ public class MessageBox extends Observable {
         if (m.pNumFlag)
             emailphone[1] = m.getPhoneNum();
         orders.remove(orderNumber);
+        //get the observer's attention
+        setChanged();
+        notifyObservers();
         return emailphone;
     }
 
