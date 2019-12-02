@@ -67,7 +67,7 @@ public class MessageBox extends Observable {
     }
 
     public void clearOrders() {
-        orders = new HashMap<Integer, Message>();
+        orders.clear();
     }
 
     public HashMap<Integer, Message> getOrders() {
@@ -92,6 +92,7 @@ public class MessageBox extends Observable {
     public String[] getEmailPhone(int orderNumber) throws NullPointerException{
         String[] emailphone = new String[2];
         Message m = orders.get(orderNumber);
+        System.out.println("m = "+ m);
         if(m == null)
             throw new NullPointerException();
         if (m.emailFlag)
