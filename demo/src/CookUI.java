@@ -23,7 +23,7 @@ public class CookUI extends Application {
     TextField orderNumber = new TextField();
     Object[] array = msg.getKeys().toArray();
     Text error = new Text();
-    //OrderIOManager io = new OrderIOManager(msg);
+    OrderIOManager io = new OrderIOManager(msg);
 
     public static void main(String[] args) {
         launch(args);
@@ -113,9 +113,11 @@ public class CookUI extends Application {
                             error.setFill(Color.RED);
                         }
 
+                        msg.removeMessage(order);
+
                         updateGridPane();
                         orderNumber.setText("");
-                        msg.removeMessage(order);
+
                     } /*catch (SendFailedException e){
                         System.out.println("email send failed");
                     } catch (MessagingException e) {
@@ -124,6 +126,7 @@ public class CookUI extends Application {
                         System.out.println("Order number doesn't exist");
                         error.setText("Order number " + order + " does not exist, please make sure you type the correct number\nNull pointer");
                         error.setFill(Color.RED);
+                        e.printStackTrace();
                     }
                 }
             });

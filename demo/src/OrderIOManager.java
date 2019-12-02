@@ -9,31 +9,25 @@ public class OrderIOManager implements Observer {
 
     private static final String filePath = "orders.buz";
     private File hashFile;
-    private FileWriter fileOut;
-    private FileReader bufFeed;
-    private BufferedReader fileIn;
 
     private MessageBox messageBox;
 
     public OrderIOManager (MessageBox mBox) {
         messageBox = mBox;
-        try {
-            bufFeed = new FileReader(filePath);
-            fileIn = new BufferedReader(bufFeed);
-            fileOut = new FileWriter(filePath, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public MessageBox readHashMap() {
+
         //make sure message box is empty
         messageBox.clearOrders();
         String entry = "";
         try {
+            FileReader bufFeed = new FileReader(filePath);
+            BufferedReader fileIn = new BufferedReader(bufFeed);
+
             while ( (entry = fileIn.readLine()) != null ) {
                 String[] elements = entry.split(" ");
-                newBox.putMessage(Integer.parseInt(elements[0]), elements[1], elements[2]);
+                messageBox.putMessage(Integer.parseInt(elements[0]), elements[1], elements[2]);
                 System.out.println("Order number: " + elements[0] + " Email: " + elements[1] + " Phone: " + elements[2]);
             }
         } catch (Exception e) {
@@ -44,10 +38,16 @@ public class OrderIOManager implements Observer {
     }
 
     public void writeHashMap() {
+
         try {
+
+            FileWriter fileOut = new FileWriter(filePath);
+            fileOut.flush();
             for (int k : messageBox.getKeys()) {
                 String[] contacts = messageBox.getEmailPhone(k);
                 fileOut.write(k + " " + contacts[0] + " " + contacts[1] + "\n");
+                System.out.println("writing order: ");
+                System.out.println(k + " " + contacts[0] + " " + contacts[1]);
             }
             fileOut.flush();
         } catch (Exception e) {
