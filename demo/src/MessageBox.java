@@ -47,6 +47,8 @@ public class MessageBox extends Observable {
         orders = new HashMap<>();
     }
 
+    public int size() { return orders.size(); }
+
     //inserts a new message into the box
     public Message putMessage(int orderNum, String email, String pNum) {
         Message newOrder = new Message(email, pNum);
