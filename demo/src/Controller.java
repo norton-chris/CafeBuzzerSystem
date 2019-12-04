@@ -46,8 +46,13 @@ public class Controller
     public void handleSubmitButton(ActionEvent event){
         System.out.println("Send Button Pressed!");
         try {
-            if(!orderNum.getText().isEmpty())
+            if(orderNum.getText().isEmpty())
             {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("PLEASE ENTER CORRECT INFORMATION");
+                alert.show();
+            }
+            else{
                 int orderNumPars = Integer.parseInt(orderNum.getText());
                 String orderNumRecieve = orderNum.getText();
                 if(!emailAdd.getText().isEmpty()) {
@@ -63,10 +68,6 @@ public class Controller
                     phoneNum.clear();
                 }
                 orderNum.clear();
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("PLEASE ENTER YOUR ORDER NUMBER!");
             }
             //            else if(!phoneNum.getText().isEmpty() && emailAdd.getText().isEmpty()){
 //                String phoneReceive = phoneNum.getText();
