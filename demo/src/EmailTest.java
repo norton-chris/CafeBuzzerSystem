@@ -33,6 +33,19 @@ class EmailTest {
     }
 
     @Test
+    void testEmailParser1 () {
+        Email email = new Email();
+        String string = email.parseEmail("eedolson");
+        assertEquals("eedolson@mtu.edu", string);
+    }
+    @Test
+    void testEmailParser2 () {
+        Email email = new Email();
+        String string = email.parseEmail("eedolson@gmail.com");
+        assertEquals("eedolson@gmail.com", string);
+    }
+
+    @Test
     void main() {
 
     }
