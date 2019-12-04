@@ -31,6 +31,8 @@ public class CookUI extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        msg.addObserver(io);
+
         try {
             Email email = new Email();
             Phone phone = new Phone();
@@ -83,6 +85,7 @@ public class CookUI extends Application {
                     // if it is check for !null email and/or phone number
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
+//                        io.writeHashMap();
                         System.out.println("in the first try");
                         if (emailphone[0] != null)
                             System.out.println("in first if");
@@ -113,7 +116,7 @@ public class CookUI extends Application {
                             error.setFill(Color.RED);
                         }
 
-                        msg.removeMessage(order);
+//                        msg.removeMessage(order);
 
                         updateGridPane();
                         orderNumber.setText("");

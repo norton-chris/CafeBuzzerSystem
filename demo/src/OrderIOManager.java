@@ -42,6 +42,7 @@ public class OrderIOManager implements Observer {
         try {
 
             FileWriter fileOut = new FileWriter(filePath);
+            System.out.println("made a new filewriter");
             fileOut.flush();
             for (int k : messageBox.getKeys()) {
                 String[] contacts = messageBox.getEmailPhone(k);
@@ -57,6 +58,7 @@ public class OrderIOManager implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("observer ran!");
         writeHashMap();
     }
 
