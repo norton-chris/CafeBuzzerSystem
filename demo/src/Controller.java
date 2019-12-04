@@ -23,7 +23,7 @@ public class Controller
     Email email = new Email();
     Phone phone = new Phone();
     MessageBox msgBox = new MessageBox();
-    OrderIOManager io = new OrderIOManager();
+//    OrderIOManager io = new OrderIOManager();
     private userUI ui;
     @FXML
     private TextField orderNum;
