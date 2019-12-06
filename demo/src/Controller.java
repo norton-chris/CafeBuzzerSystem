@@ -92,7 +92,7 @@ public class Controller
             orderNum.clear();
 
 
-            io.writeHashMap();
+            io.writeHashMap(true);
         } catch (Exception e) {
             System.out.println("PROBLEM IN retrieve EMAIL!");
             e.printStackTrace();
