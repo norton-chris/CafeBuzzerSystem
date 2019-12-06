@@ -30,7 +30,7 @@
                   <Insets right="200.0" top="50.0" />
                </StackPane.margin>
             </Button>
-            <Label text="32" StackPane.alignment="BOTTOM_RIGHT" />
+            <Label fx:id="orders" text="32" StackPane.alignment="BOTTOM_RIGHT" />
          </children>
       </StackPane>
    </bottom>
@@ -43,11 +43,6 @@
                   <Image url="@FullName_Horizontal_TwoColor.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" prefHeight="100.0" prefWidth="98.0" snapToPixel="false" text="Please fill out all fields!" textAlignment="CENTER" textFill="RED" wrapText="true">
-               <StackPane.margin>
-                  <Insets left="65.0" />
-               </StackPane.margin>
-            </Label>
          </children>
       </StackPane>
    </left>

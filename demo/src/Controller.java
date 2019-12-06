@@ -37,6 +37,9 @@ public class Controller
     @FXML
     private Button send;
 
+    @FXML
+    private Label orders;
+
     public Controller(){};
     private void initalize(){};
 
@@ -45,11 +48,12 @@ public class Controller
     }
     public void handleSubmitButton(ActionEvent event){
         System.out.println("Send Button Pressed!");
+        orders.setText("" + msgBox.size());
         try {
             if(orderNum.getText().isEmpty())
             {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("PLEASE ENTER CORRECT INFORMATION");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("Invalid entry!");
                 alert.show();
             }
             else{
