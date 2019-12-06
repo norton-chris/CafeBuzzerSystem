@@ -31,7 +31,6 @@ public class CookUI extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        msg.addObserver(io);
 
         try {
             Email email = new Email();
@@ -85,7 +84,7 @@ public class CookUI extends Application {
                     // if it is check for !null email and/or phone number
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
-//                        io.writeHashMap();
+                        io.writeHashMap(false);
                         System.out.println("in the first try");
                         if (emailphone[0] != null)
                             System.out.println("in first if");
@@ -104,7 +103,7 @@ public class CookUI extends Application {
                                         phone.sendOrderReady(emailphone[1]);
                                         System.out.println("order message sent");
                                     }catch (Exception e) {
-                                        System.out.println(name + "Messaging exception nerd");
+                                        System.out.println(name + "Messaging exception");
                                     }
                                 }
                             }
@@ -129,6 +128,7 @@ public class CookUI extends Application {
                         System.out.println("Order number doesn't exist");
                         error.setText("Order number " + order + " does not exist, please make sure you type the correct number\nNull pointer");
                         error.setFill(Color.RED);
+                        orderNumber.setText("");
                         e.printStackTrace();
                     }
                 }

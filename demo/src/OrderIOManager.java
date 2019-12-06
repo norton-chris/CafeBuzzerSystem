@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-public class OrderIOManager implements Observer {
+public class OrderIOManager {
 
     private static final String filePath = "orders.buz";
     private File hashFile;
@@ -37,11 +37,11 @@ public class OrderIOManager implements Observer {
         return messageBox;
     }
 
-    public void writeHashMap() {
+    public void writeHashMap(boolean append) {
 
         try {
 
-            FileWriter fileOut = new FileWriter(filePath);
+            FileWriter fileOut = new FileWriter(filePath, append);
             System.out.println("made a new filewriter");
             fileOut.flush();
             for (int k : messageBox.getKeys()) {
@@ -56,20 +56,15 @@ public class OrderIOManager implements Observer {
         }
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("observer ran!");
-        writeHashMap();
-    }
-
     public static void main (String args[]) {
         MessageBox box = new MessageBox();
         box.putMessage(45, "testmail@mtu.edu", "7158675309");
+        //box.putMessage(69, "cnorton@mtu.edu", "7158675309");
         OrderIOManager io = new OrderIOManager(box);
         File hashFile = new File(filePath);
         try {
 
-            io.writeHashMap();
+            io.writeHashMap(true);
             MessageBox newBox = io.readHashMap();
             System.out.println(newBox.removeMessage(45).getEmail());
         } catch (Exception e) {
