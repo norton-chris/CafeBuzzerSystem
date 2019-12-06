@@ -87,7 +87,7 @@ public class Controller
                     }
                     new MyThread(orderNumPars + "SendMessage");
                     // end of thread
-                    msgBox.putMessage(orderNumPars, phoneRecieve, "");
+                    msgBox.putMessage(orderNumPars, "", phoneRecieve);
                     phoneNum.clear();
                 }
                 orderNum.clear();

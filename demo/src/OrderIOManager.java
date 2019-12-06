@@ -40,7 +40,6 @@ public class OrderIOManager {
     public void writeHashMap() {
 
         try {
-
             FileWriter fileOut = new FileWriter(filePath);
             System.out.println("made a new filewriter");
             fileOut.flush();
