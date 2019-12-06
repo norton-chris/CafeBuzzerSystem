@@ -102,7 +102,6 @@ public class Phone {
             Message message1 = orderMessage(session, myEmail, recipientWithAt);
             Transport.send(message1);
             System.out.println("Order Notification sent for " + carriers.get(i) + " " + recipient);
-            System.out.println("Carriers Size: " + carriers.size());
         }
     }
 
