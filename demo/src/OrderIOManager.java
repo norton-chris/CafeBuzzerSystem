@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-public class OrderIOManager implements Observer {
+public class OrderIOManager {
 
     private static final String filePath = "orders.buz";
     private File hashFile;
@@ -54,12 +54,6 @@ public class OrderIOManager implements Observer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("observer ran!");
-        writeHashMap();
     }
 
     public static void main (String args[]) {

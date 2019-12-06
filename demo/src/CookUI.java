@@ -31,7 +31,6 @@ public class CookUI extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //msg.addObserver(io);
 
         try {
             Email email = new Email();
