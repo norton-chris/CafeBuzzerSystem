@@ -104,7 +104,7 @@ public class CookUI extends Application {
                                         phone.sendOrderReady(emailphone[1]);
                                         System.out.println("order message sent");
                                     }catch (Exception e) {
-                                        System.out.println(name + "Messaging exception nerd");
+                                        System.out.println(name + "Messaging exception");
                                     }
                                 }
                             }

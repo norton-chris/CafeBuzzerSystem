@@ -67,7 +67,26 @@ public class Controller
                 }
                 if(!phoneNum.getText().isEmpty()){
                     String phoneRecieve = phoneNum.getText();
-                    phone.sendInitial(phoneRecieve);
+                    //beginning of thread
+                    class MyThread implements Runnable { // using thread to avoid unresponsive gui
+                        String name;
+                        Thread t;
+                        MyThread (String threadname){
+                            name = threadname;
+                            t = new Thread(this, name);
+                            t.start();
+                        }
+                        public void run() {
+                            try {
+                                phone.sendOrderReady(phoneRecieve);
+                                System.out.println("order message sent");
+                            }catch (Exception e) {
+                                System.out.println(name + "Messaging exception ");
+                            }
+                        }
+                    }
+                    new MyThread(orderNumPars + "SendMessage");
+                    // end of thread
                     msgBox.putMessage(orderNumPars, phoneRecieve, "");
                     phoneNum.clear();
                 }
