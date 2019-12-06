@@ -23,7 +23,7 @@ public class Controller
     Email email = new Email();
     Phone phone = new Phone();
     MessageBox msgBox = new MessageBox();
-    OrderIOManager io = new OrderIOManager(msgBox);
+//    OrderIOManager io = new OrderIOManager();
     private userUI ui;
     @FXML
     private TextField orderNum;
@@ -80,51 +80,12 @@ public class Controller
                 }
                 if(!phoneNum.getText().isEmpty()){
                     String phoneRecieve = phoneNum.getText();
-                    //beginning of thread
-                    class MyThread implements Runnable { // using thread to avoid unresponsive gui
-                        String name;
-                        Thread t;
-                        MyThread (String threadname){
-                            name = threadname;
-                            t = new Thread(this, name);
-                            t.start();
-                        }
-                        public void run() {
-                            try {
-                                phone.sendOrderReady(phoneRecieve);
-                                System.out.println("order message sent");
-                            }catch (Exception e) {
-                                System.out.println(name + "Messaging exception ");
-                            }
-                        }
-                    }
-                    new MyThread(orderNumPars + "SendMessage");
-                    // end of thread
-                    msgBox.putMessage(orderNumPars, "", phoneRecieve);
+                    phone.sendInitial(phoneRecieve);
+                    msgBox.putMessage(orderNumPars, phoneRecieve, "");
                     phoneNum.clear();
                 }
                 orderNum.clear();
             }
-            //            else if(!phoneNum.getText().isEmpty() && emailAdd.getText().isEmpty()){
-//                String phoneReceive = phoneNum.getText();
-//                int orderNumPars = Integer.parseInt(orderNum.getText());
-//                //phone.sendInitial(phoneReceive);
-//                msgBox.putMessage(orderNumPars, "", phoneReceive);
-//                phoneNum.clear();
-//
-//            }
-//            else if(!phoneNum.getText().isEmpty() && !emailAdd.getText().isEmpty()){
-//                String emailReceive = emailAdd.getText();
-//                int orderNumPars = Integer.parseInt(orderNum.getText());
-//                String phoneReceive = phoneNum.getText();
-//                email.sendInitial(emailReceive);
-//                msgBox.putMessage(orderNumPars, emailReceive, phoneReceive);
-//                emailAdd.clear();
-//            }
-            orderNum.clear();
-
-
-            io.writeHashMap(true);
         } catch (Exception e) {
             System.out.println("PROBLEM IN retrieve EMAIL!");
             e.printStackTrace();
