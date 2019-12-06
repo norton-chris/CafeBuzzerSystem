@@ -23,7 +23,7 @@ public class Controller
     Email email = new Email();
     Phone phone = new Phone();
     MessageBox msgBox = new MessageBox();
-//    OrderIOManager io = new OrderIOManager();
+    OrderIOManager io = new OrderIOManager(msgBox);
     private userUI ui;
     @FXML
     private TextField orderNum;
@@ -87,7 +87,7 @@ public class Controller
             orderNum.clear();
 
 
-//            io.writeHashMap();
+            io.writeHashMap();
         } catch (Exception e) {
             System.out.println("PROBLEM IN retrieve EMAIL!");
             e.printStackTrace();
