@@ -42,6 +42,22 @@ public class MessageBoxTest {
     }
 
     @Test
+    void testGetEmailPhone2() {
+        MessageBox mb = new MessageBox();
+        mb.putMessage(1, "", "");
+        mb.putMessage(2, "cnorton", "6169637757");
+        mb.putMessage(3, "edolson@macatawaponyclub.org", "616566000");
+        mb.putMessage(4, "", "6169637757");
+        mb.putMessage(5, "lstone", "");
+        String[] result = mb.getEmailPhone(1);
+        assertEquals("eedolson", result[0]);
+        assertEquals("6165668263", result[1]);
+        result = mb.getEmailPhone(5);
+        assertEquals("lstone", result[0]);
+        assertEquals(null, result[1]);
+    }
+
+    @Test
     void testClearOrders1() {
         MessageBox mb = new MessageBox();
         mb.putMessage(1, "eedolson", "6165668263");
