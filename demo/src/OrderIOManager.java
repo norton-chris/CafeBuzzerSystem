@@ -37,10 +37,11 @@ public class OrderIOManager {
         return messageBox;
     }
 
-    public void writeHashMap() {
+    public void writeHashMap(boolean append) {
 
         try {
-            FileWriter fileOut = new FileWriter(filePath);
+
+            FileWriter fileOut = new FileWriter(filePath, append);
             System.out.println("made a new filewriter");
             fileOut.flush();
             for (int k : messageBox.getKeys()) {
@@ -63,7 +64,7 @@ public class OrderIOManager {
         File hashFile = new File(filePath);
         try {
 
-            io.writeHashMap();
+            io.writeHashMap(true);
             MessageBox newBox = io.readHashMap();
             System.out.println(newBox.removeMessage(45).getEmail());
         } catch (Exception e) {

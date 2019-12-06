@@ -84,7 +84,7 @@ public class CookUI extends Application {
                     // if it is check for !null email and/or phone number
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
-                        io.writeHashMap();
+                        io.writeHashMap(false);
                         System.out.println("in the first try");
                         if (emailphone[0] != null)
                             System.out.println("in first if");
