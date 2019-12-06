@@ -2,6 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,12 +81,9 @@ class PhoneTest {
 
     @Test
     void sendMail() {
-        try {
-            phone.sendInitial("999 999 9999");
-        } catch (MessagingException e) {
-            assert true;
-            return;
-        }
-        assert false;
+        assertThrows(
+                NullPointerException.class,
+                () -> phone.sendInitial("999 99999 9999"));
+
     }
 }
