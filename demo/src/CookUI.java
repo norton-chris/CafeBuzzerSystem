@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CookUI extends Application {
 
@@ -56,6 +58,13 @@ public class CookUI extends Application {
 
             updateGridPane();
 
+            new Timer().schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            updateGridPane();
+                        }
+                    }, 0, 60000);
 
             // Create send button
             Button send = new Button("Send");
@@ -76,7 +85,6 @@ public class CookUI extends Application {
                     }
 
                     updateGridPane();
-
 
                     String printOrder = orderNumber.getText();
                     System.out.println("Order number is: " + printOrder);
@@ -115,11 +123,8 @@ public class CookUI extends Application {
                             error.setFill(Color.RED);
                         }
 
-//                        msg.removeMessage(order);
-
                         updateGridPane();
                         orderNumber.setText("");
-
                     } /*catch (SendFailedException e){
                         System.out.println("email send failed");
                     } catch (MessagingException e) {
