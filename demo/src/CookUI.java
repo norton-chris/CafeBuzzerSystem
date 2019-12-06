@@ -128,6 +128,7 @@ public class CookUI extends Application {
                         System.out.println("Order number doesn't exist");
                         error.setText("Order number " + order + " does not exist, please make sure you type the correct number\nNull pointer");
                         error.setFill(Color.RED);
+                        orderNumber.setText("");
                         e.printStackTrace();
                     }
                 }

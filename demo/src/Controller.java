@@ -23,7 +23,7 @@ public class Controller
     Email email = new Email();
     Phone phone = new Phone();
     MessageBox msgBox = new MessageBox();
-//    OrderIOManager io = new OrderIOManager();
+    OrderIOManager io = new OrderIOManager(msgBox);
     private userUI ui;
     @FXML
     private TextField orderNum;
@@ -37,6 +37,9 @@ public class Controller
     @FXML
     private Button send;
 
+    @FXML
+    private Label orders;
+
     public Controller(){};
     private void initalize(){};
 
@@ -45,9 +48,15 @@ public class Controller
     }
     public void handleSubmitButton(ActionEvent event){
         System.out.println("Send Button Pressed!");
+        orders.setText("" + msgBox.size());
         try {
-            if(!orderNum.getText().isEmpty())
+            if(orderNum.getText().isEmpty())
             {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("Invalid entry!");
+                alert.show();
+            }
+            else{
                 int orderNumPars = Integer.parseInt(orderNum.getText());
                 String orderNumRecieve = orderNum.getText();
                 if(!emailAdd.getText().isEmpty()) {
@@ -63,10 +72,6 @@ public class Controller
                     phoneNum.clear();
                 }
                 orderNum.clear();
-            }
-            else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("PLEASE ENTER YOUR ORDER NUMBER!");
             }
             //            else if(!phoneNum.getText().isEmpty() && emailAdd.getText().isEmpty()){
 //                String phoneReceive = phoneNum.getText();
@@ -87,7 +92,7 @@ public class Controller
             orderNum.clear();
 
 
-//            io.writeHashMap();
+            io.writeHashMap();
         } catch (Exception e) {
             System.out.println("PROBLEM IN retrieve EMAIL!");
             e.printStackTrace();

@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cookUI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cookUI_jar</output-path>
+    <root id="archive" name="demo.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="demo" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/dsn.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/pop3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-jupiter-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-jupiter-api-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/apiguardian-api-1.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/opentest4j-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-platform-commons-1.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-jupiter-params-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-jupiter-engine-5.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-platform-engine-1.4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/mail.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/imap.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/mailapi.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/smtp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../External libraries/activation.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

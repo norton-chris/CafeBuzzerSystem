@@ -59,6 +59,7 @@ public class OrderIOManager {
     public static void main (String args[]) {
         MessageBox box = new MessageBox();
         box.putMessage(45, "testmail@mtu.edu", "7158675309");
+        //box.putMessage(69, "cnorton@mtu.edu", "7158675309");
         OrderIOManager io = new OrderIOManager(box);
         File hashFile = new File(filePath);
         try {
