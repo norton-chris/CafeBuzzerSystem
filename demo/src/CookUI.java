@@ -91,7 +91,7 @@ public class CookUI extends Application {
                     // then check if the order number is in the HashMap
                     // if it is check for !null email and/or phone number
                     try {
-                        String[] emailphone = msg.getEmailPhone(order);
+                        String[] emailphone = msg.getEmailPhone(order, true);
                         io.writeHashMap(false);
                         System.out.println("in the first try");
                         if (emailphone[0] != null)
