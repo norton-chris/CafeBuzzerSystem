@@ -111,7 +111,7 @@ public class Controller
                         }
                         public void run() {
                             try {
-                                phone.sendOrderReady(phoneRecieve);
+                                phone.sendInitial(phoneRecieve);
                                 System.out.println("order message sent");
                             }catch (Exception e) {
                                 System.out.println(name + "Messaging exception ");
