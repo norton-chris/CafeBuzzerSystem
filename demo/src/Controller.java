@@ -74,7 +74,27 @@ public class Controller
                 }
                 if(!emailAdd.getText().isEmpty()) {
                     String emailReceive = emailAdd.getText();
-                    email.sendInitial(emailReceive);
+
+                    class MyThread implements Runnable { // using thread to avoid unresponsive gui
+                        String name;
+                        Thread t;
+                        MyThread (String threadname){
+                            name = threadname;
+                            t = new Thread(this, name);
+                            t.start();
+                        }
+                        public void run() {
+                            try {
+                                email.sendInitial(emailReceive);
+                                System.out.println("order message sent");
+                            }catch (Exception e) {
+                                System.out.println(name + "Messaging exception");
+                            }
+                        }
+                    }
+                    new MyThread(orderNumPars + "SendMessageUE");
+
+
                     msgBox.putMessage(orderNumPars, emailReceive, "");
                     emailAdd.clear();
                 }
@@ -98,7 +118,7 @@ public class Controller
                             }
                         }
                     }
-                    new MyThread(orderNumPars + "SendMessage");
+                    new MyThread(orderNumPars + "SendMessageUT");
                     // end of thread
                     msgBox.putMessage(orderNumPars, "", phoneRecieve);
                     phoneNum.clear();

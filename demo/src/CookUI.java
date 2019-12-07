@@ -85,10 +85,26 @@ public class CookUI extends Application {
                     try {
                         String[] emailphone = msg.getEmailPhone(order);
                         io.writeHashMap(false);
-                        System.out.println("in the first try");
-                        if (emailphone[0] != null)
-                            System.out.println("in first if");
-                            //email.sendOrderReady(emailphone[0]);
+                        if (emailphone[0] != null) {
+                            class MyThread implements Runnable { // using thread to avoid unresponsive gui
+                                String name;
+                                Thread t;
+                                MyThread (String threadname){
+                                    name = threadname;
+                                    t = new Thread(this, name);
+                                    t.start();
+                                }
+                                public void run() {
+                                    try {
+                                        email.sendOrderReady(emailphone[0]);
+                                        System.out.println("order message sent");
+                                    }catch (Exception e) {
+                                        System.out.println(name + "Messaging exception");
+                                    }
+                                }
+                            }
+                            new MyThread(printOrder + "SendMessageCE");
+                        }
                         if (emailphone[1] != null) {
                             class MyThread implements Runnable { // using thread to avoid unresponsive gui
                                 String name;
@@ -107,7 +123,7 @@ public class CookUI extends Application {
                                     }
                                 }
                             }
-                            new MyThread(printOrder + "SendMessage");
+                            new MyThread(printOrder + "SendMessageCT");
                         }
                         if (emailphone[0] == null && emailphone [1] == null) {
                             System.out.println("Order number doesn't exist");
