@@ -1,8 +1,7 @@
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -53,7 +52,7 @@ public class Email {
         } catch (SendFailedException e){
             throw new SendFailedException();
         } catch (AuthenticationFailedException e){
-            System.out.println("Email or password is incorrect");
+            System.out.println("Email or password is not incorrect");
         } catch (Exception e) {
             System.out.println(e);
             System.exit(-1);
@@ -63,21 +62,10 @@ public class Email {
     private static Message initialMessage(Session session, String myEmail, String recepient) throws MessagingException {
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(myEmail));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(recepient));
-            message.setSubject("Cafe Notification System");
-            MimeMultipart multipart = new MimeMultipart("related");
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setContent("<img src=\"cid:image\">", "text/html");
-            multipart.addBodyPart(messageBodyPart);
-            messageBodyPart = new MimeBodyPart();
-            DataSource fds = new FileDataSource(
-                    "C:\\Users\\antho\\Documents\\GitHub\\CafeBuzzerSystem\\demo\\src\\cnii.jpg");
-            messageBodyPart.setDataHandler(new DataHandler(fds));
-            messageBodyPart.setHeader("Content-ID", "<image>");
-            multipart.addBodyPart(messageBodyPart);
-            message.setContent(multipart);
+            message.setFrom(new InternetAddress((myEmail)));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+            message.setSubject("[Prototype]Order Notification");
+            message.setText("Your order has been placed. You will receive another email once your food is ready!");
             return message;
         } catch (AddressException ex) {
             Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);

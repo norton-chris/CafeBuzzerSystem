@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 
 import javax.mail.MessagingException;
 import javax.mail.SendFailedException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class CookUI extends Application {
 
@@ -58,13 +56,6 @@ public class CookUI extends Application {
 
             updateGridPane();
 
-            new Timer().schedule(
-                    new TimerTask() {
-                        @Override
-                        public void run() {
-                            updateGridPane();
-                        }
-                    }, 0, 60000);
 
             // Create send button
             Button send = new Button("Send");
@@ -86,6 +77,7 @@ public class CookUI extends Application {
 
                     updateGridPane();
 
+
                     String printOrder = orderNumber.getText();
                     System.out.println("Order number is: " + printOrder);
                     // then check if the order number is in the HashMap
@@ -93,10 +85,26 @@ public class CookUI extends Application {
                     try {
                         String[] emailphone = msg.getEmailPhone(order, true);
                         io.writeHashMap(false);
-                        System.out.println("in the first try");
-                        if (emailphone[0] != null)
-                            System.out.println("in first if");
-                            //email.sendOrderReady(emailphone[0]);
+                        if (emailphone[0] != null) {
+                            class MyThread implements Runnable { // using thread to avoid unresponsive gui
+                                String name;
+                                Thread t;
+                                MyThread (String threadname){
+                                    name = threadname;
+                                    t = new Thread(this, name);
+                                    t.start();
+                                }
+                                public void run() {
+                                    try {
+                                        email.sendOrderReady(emailphone[0]);
+                                        System.out.println("order message sent");
+                                    }catch (Exception e) {
+                                        System.out.println(name + "Messaging exception");
+                                    }
+                                }
+                            }
+                            new MyThread(printOrder + "SendMessageCE");
+                        }
                         if (emailphone[1] != null) {
                             class MyThread implements Runnable { // using thread to avoid unresponsive gui
                                 String name;
@@ -115,7 +123,7 @@ public class CookUI extends Application {
                                     }
                                 }
                             }
-                            new MyThread(printOrder + "SendMessage");
+                            new MyThread(printOrder + "SendMessageCT");
                         }
                         if (emailphone[0] == null && emailphone [1] == null) {
                             System.out.println("Order number doesn't exist");
@@ -123,8 +131,11 @@ public class CookUI extends Application {
                             error.setFill(Color.RED);
                         }
 
+//                        msg.removeMessage(order);
+
                         updateGridPane();
                         orderNumber.setText("");
+
                     } /*catch (SendFailedException e){
                         System.out.println("email send failed");
                     } catch (MessagingException e) {
