@@ -83,7 +83,7 @@ public class CookUI extends Application {
                     // then check if the order number is in the HashMap
                     // if it is check for !null email and/or phone number
                     try {
-                        String[] emailphone = msg.getEmailPhone(order, true);
+                        String[] emailphone = msg.getEmailPhone(order);
                         io.writeHashMap(false);
                         if (emailphone[0] != null) {
                             class MyThread implements Runnable { // using thread to avoid unresponsive gui

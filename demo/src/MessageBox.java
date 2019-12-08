@@ -85,7 +85,7 @@ public class MessageBox {
 
     //helper method for email and phone classes to get relevant information?
     //unsure if necessary
-    public String[] getEmailPhone(int orderNumber, boolean remove) throws NullPointerException{
+    public String[] getEmailPhone(int orderNumber) throws NullPointerException{
         String[] emailphone = new String[2];
         Message m = orders.get(orderNumber);
         System.out.println("m = "+ m);
@@ -95,8 +95,7 @@ public class MessageBox {
             emailphone[0] = m.getEmail();
         if (m.pNumFlag)
             emailphone[1] = m.getPhoneNum();
-        if (remove)
-            orders.remove(orderNumber);
+        orders.remove(orderNumber);
         return emailphone;
     }
 
