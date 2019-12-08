@@ -66,7 +66,7 @@ public class Controller
                 String orderNumStr = orderNum.getText();
                 int orderNumPars = Integer.parseInt(orderNumStr);
 
-                if(!orderNumStr.matches("0|[1-9]\\d+"))
+                if(!orderNumStr.matches("0|[1-9]\\d+") || orderNumStr.length() > 3)
                 {
                     alert.show();
                     orderNum.clear();
