@@ -45,7 +45,7 @@ public class OrderIOManager {
             System.out.println("made a new filewriter");
             fileOut.flush();
             for (int k : messageBox.getKeys()) {
-                String[] contacts = messageBox.getEmailPhone(k);
+                String[] contacts = messageBox.getEmailPhone(k, false);
                 fileOut.write(k + " " + contacts[0] + " " + contacts[1] + "\n");
                 System.out.println("writing order: ");
                 System.out.println(k + " " + contacts[0] + " " + contacts[1]);
