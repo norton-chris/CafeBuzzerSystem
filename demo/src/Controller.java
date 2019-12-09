@@ -53,7 +53,9 @@ public class Controller
     public void setApp(userUI ui){
         this.ui = ui;
     }
+
     public void handleSubmitButton(ActionEvent event){
+        send.setDefaultButton(true);
         System.out.println("Send Button Pressed!");
         orders.setText("" + msgBox.size());
         try {
@@ -69,7 +71,7 @@ public class Controller
                 String orderNumStr = orderNum.getText();
                 int orderNumPars = Integer.parseInt(orderNumStr);
 
-                if(!orderNumStr.matches("0|[1-9]\\d+"))
+                if(!orderNumStr.matches("0|[1-9]\\d+") || orderNumStr.length() > 3)
                 {
                     alert.show();
                     orderNum.clear();
@@ -81,27 +83,7 @@ public class Controller
                 }
                 if(!emailAdd.getText().isEmpty() && phoneNum.getText().isEmpty()) {
                     String emailReceive = emailAdd.getText();
-
-                    class MyThread implements Runnable { // using thread to avoid unresponsive gui
-                        String name;
-                        Thread t;
-                        MyThread (String threadname){
-                            name = threadname;
-                            t = new Thread(this, name);
-                            t.start();
-                        }
-                        public void run() {
-                            try {
-                                email.sendInitial(emailReceive);
-                                System.out.println("order message sent");
-                            }catch (Exception e) {
-                                System.out.println(name + "Messaging exception");
-                            }
-                        }
-                    }
-                    new MyThread(orderNumPars + "SendMessageUE");
-
-
+                    email.sendInitial(emailReceive);
                     msgBox.putMessage(orderNumPars, emailReceive, "");
                     emailAdd.clear();
                 }
@@ -177,8 +159,7 @@ public class Controller
             e.printStackTrace();
         }
     }
-    public static void main(String[]args)
-    {
+    public static void main(String[]args) {
 
     }
 }
