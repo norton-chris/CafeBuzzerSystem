@@ -34,6 +34,7 @@ class EmailTest {
         String string = email.parseEmail("eedolson");
         assertEquals("eedolson@mtu.edu", string);
     }
+
     @Test
     void testEmailParser2 () {
         Email email = new Email();
@@ -46,3 +47,4 @@ class EmailTest {
 
     }
 }
+

@@ -20,10 +20,10 @@ import static javafx.application.Application.launch;
 public class Controller
 {
 
-    Email email = new Email();
-    Phone phone = new Phone();
-    MessageBox msgBox = new MessageBox();
-    OrderIOManager io = new OrderIOManager(msgBox);
+    Email email;
+    Phone phone;
+    MessageBox msgBox;
+    OrderIOManager io;
     private userUI ui;
     @FXML
     private TextField orderNum;
@@ -40,7 +40,14 @@ public class Controller
     @FXML
     private Label orders;
 
-    public Controller(){};
+    public Controller(){
+        System.out.println("controller created!");
+        email = new Email();
+        phone = new Phone();
+        msgBox = new MessageBox();
+        io = new OrderIOManager(msgBox);
+        io.readHashMap();
+    };
     private void initalize(){};
 
     public void setApp(userUI ui){
@@ -72,7 +79,7 @@ public class Controller
                     alert.show();
                     return;
                 }
-                if(!emailAdd.getText().isEmpty()) {
+                if(!emailAdd.getText().isEmpty() && phoneNum.getText().isEmpty()) {
                     String emailReceive = emailAdd.getText();
 
                     class MyThread implements Runnable { // using thread to avoid unresponsive gui
@@ -98,8 +105,8 @@ public class Controller
                     msgBox.putMessage(orderNumPars, emailReceive, "");
                     emailAdd.clear();
                 }
-                if(!phoneNum.getText().isEmpty()){
-                    String phoneRecieve = phoneNum.getText();
+                else if(!phoneNum.getText().isEmpty() && emailAdd.getText().isEmpty()){
+                    String phoneReceive = phoneNum.getText();
                     //beginning of thread
                     class MyThread implements Runnable { // using thread to avoid unresponsive gui
                         String name;
@@ -111,7 +118,7 @@ public class Controller
                         }
                         public void run() {
                             try {
-                                phone.sendInitial(phoneRecieve);
+                                phone.sendInitial(phoneReceive);
                                 System.out.println("order message sent");
                             }catch (Exception e) {
                                 System.out.println(name + "Messaging exception ");
@@ -120,10 +127,39 @@ public class Controller
                     }
                     new MyThread(orderNumPars + "SendMessageUT");
                     // end of thread
-                    msgBox.putMessage(orderNumPars, "", phoneRecieve);
+                    msgBox.putMessage(orderNumPars, "", phoneReceive);
+                    phoneNum.clear();
+                } else if(!phoneNum.getText().isEmpty() && !emailAdd.getText().isEmpty()){
+                    String emailReceive = emailAdd.getText();
+                    //int orderNumPars = Integer.parseInt(orderNum.getText());
+                    String phoneReceive = phoneNum.getText();
+                    email.sendInitial(emailReceive);
+                    //beginning of thread
+                    class MyThread implements Runnable { // using thread to avoid unresponsive gui
+                        String name;
+                        Thread t;
+                        MyThread (String threadname){
+                            name = threadname;
+                            t = new Thread(this, name);
+                            t.start();
+                        }
+                        public void run() {
+                            try {
+                                phone.sendInitial(phoneReceive);
+                                System.out.println("order message sent");
+                            }catch (Exception e) {
+                                System.out.println(name + "Messaging exception ");
+                            }
+                        }
+                    }
+                    new MyThread(orderNumPars + "SendMessageUT");
+                    // end of thread
+                    msgBox.putMessage(orderNumPars, emailReceive, phoneReceive);
+                    emailAdd.clear();
                     phoneNum.clear();
                 }
                 orderNum.clear();
+                io.writeHashMap(false);
             }
             //            else if(!phoneNum.getText().isEmpty() && emailAdd.getText().isEmpty()){
 //                String phoneReceive = phoneNum.getText();
@@ -132,19 +168,10 @@ public class Controller
 //                msgBox.putMessage(orderNumPars, "", phoneReceive);
 //                phoneNum.clear();
 //
-//            }
-//            else if(!phoneNum.getText().isEmpty() && !emailAdd.getText().isEmpty()){
-//                String emailReceive = emailAdd.getText();
-//                int orderNumPars = Integer.parseInt(orderNum.getText());
-//                String phoneReceive = phoneNum.getText();
-//                email.sendInitial(emailReceive);
-//                msgBox.putMessage(orderNumPars, emailReceive, phoneReceive);
-//                emailAdd.clear();
-//            }
-            orderNum.clear();
+//           }
 
 
-            io.writeHashMap(true);
+
         } catch (Exception e) {
             System.out.println("PROBLEM IN retrieve EMAIL!");
             e.printStackTrace();

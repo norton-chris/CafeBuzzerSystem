@@ -36,9 +36,7 @@ public class MessageBoxTest {
         String[] result = mb.getEmailPhone(1, true);
         assertEquals("eedolson", result[0]);
         assertEquals("6165668263", result[1]);
-        result = mb.getEmailPhone(5, true);
-        assertEquals("lstone", result[0]);
-        assertEquals(null, result[1]);
+
     }
 
     @Test
@@ -49,10 +47,7 @@ public class MessageBoxTest {
         mb.putMessage(3, "edolson@macatawaponyclub.org", "616566000");
         mb.putMessage(4, "", "6169637757");
         mb.putMessage(5, "lstone", "");
-        String[] result = mb.getEmailPhone(1, true);
-        assertEquals("eedolson", result[0]);
-        assertEquals("6165668263", result[1]);
-        result = mb.getEmailPhone(5, true);
+        String[] result = mb.getEmailPhone(5, true);
         assertEquals("lstone", result[0]);
         assertEquals(null, result[1]);
     }
