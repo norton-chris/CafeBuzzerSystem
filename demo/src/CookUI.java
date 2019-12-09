@@ -96,7 +96,7 @@ public class CookUI extends Application {
                         System.out.println("in the first try");
                         if (emailphone[0] != null)
                             System.out.println("in first if");
-                            //email.sendOrderReady(emailphone[0]);
+                            email.sendOrderReady(emailphone[0]);
                         if (emailphone[1] != null) {
                             class MyThread implements Runnable { // using thread to avoid unresponsive gui
                                 String name;
@@ -125,11 +125,11 @@ public class CookUI extends Application {
 
                         updateGridPane();
                         orderNumber.setText("");
-                    } /*catch (SendFailedException e){
+                    } catch (SendFailedException e){
                         System.out.println("email send failed");
                     } catch (MessagingException e) {
                         e.printStackTrace();
-                    } */catch (NullPointerException e){
+                    } catch (NullPointerException e){
                         System.out.println("Order number doesn't exist");
                         error.setText("Order number " + order + " does not exist, please make sure you type the correct number\nNull pointer");
                         error.setFill(Color.RED);
